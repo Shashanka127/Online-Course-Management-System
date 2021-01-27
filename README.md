@@ -1,4 +1,4 @@
-# Online-Course-Reservation-System
+# Online Course Reservation System
 
 ## Problem Statement
 To develop an Online Course Reservation System where students can search and
