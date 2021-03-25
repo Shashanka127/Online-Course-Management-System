@@ -1,22 +1,15 @@
-\documentclass[12pt, a4]{article}
+\documentclass[12pt, a4]{report}
 \usepackage[utf8]{inputenc}
 \usepackage{fullpage}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{custom}
 
-% --------------------------------------------------------------------------------------------------
-% --------------------------------------------------------------------------------------------------
+\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge}
 
-% Document Header
-\title{{\large \textsc{UCS1617 - Mini Project}}\\---------\\\textbf{\huge{Online Course Reservation System}}\\---\\\textbf{Use Case Document}}
-\author {
-  \textsc{Shashanka Venkatesh - 185001145}
-  \and
-  \textsc{Shri Charan RS - 185001147}
-  \and
-  \textsc{Sparsh Gupta - 185001160}
-}
-\date{\normalsize{\textsl{22$^{nd}$ February, 2021}}}
+% Inserting Document Header
+\documentheader{USE CASE DOCUMENT}{Version 1.0}{22$^{nd}$ February, 2021}
 
 \begin{document}
 \maketitle
@@ -26,23 +19,22 @@
 % --------------------------------------------------------------------------------------------------
 
 \newpage
-\section{Use Case Diagram}
+\chapter{Use Case Diagram}
 The use case diagram proposed for the Online Course Reservation System, based on the Software Requirements Specification (SRS) is shown below.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{Use Case Diagram.png}
-    \caption{Use Case Diagram for Online Course Reservation System}
+    \includegraphics[width=\textwidth]{Diagrams/Use Case Diagram.png}
 \end{figure}
 
 % --------------------------------------------------------------------------------------------------
 % --------------------------------------------------------------------------------------------------
 
 \newpage
-\section{Use Case Descriptions}
+\chapter{Use Case Descriptions}
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Login}
+\section{Login}
 \begin{itemize}
     \item \textbf{Overview}: This use case describes how a student, professor and system admin logs into the Course Reservation System.
     \item \textbf{Primary Actors}: Student, Professor and System Administrator
@@ -66,7 +58,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Check User Database}
+\section{Check User Database}
 \begin{itemize}
     \item \textbf{Overview}: Use case to Check User database.
     \item \textbf{Basic Flow}: This use case starts when an actor wishes to log into the Course Reservation System.
@@ -86,7 +78,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{View General Announcements}
+\section{View General Announcements}
 \begin{itemize}
     \item \textbf{Overview}: Use case to View General announcements made for the entire University.
     \item \textbf{Primary Actors}: Student, Professor and System Administrator
@@ -102,7 +94,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{View Available Courses}
+\section{View Available Courses}
 \begin{itemize}
     \item \textbf{Overview}: Use Case to view all available courses that the student can enroll for.
     \item \textbf{Primary Actor}: Student
@@ -117,7 +109,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
 \end{itemize}
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Register for a Course}
+\section{Register for a Course}
 \begin{itemize}
     \item \textbf{Overview}: This use case describes how a student registers for a chosen course.
     \item \textbf{Primary Actor}: Student
@@ -143,7 +135,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{View Enrolled Courses}
+\section{View Enrolled Courses}
 \begin{itemize}
     \item \textbf{Overview}: Use Case to view all available courses that the student has already enrolled for.
     \item \textbf{Primary Actor}: Student
@@ -161,7 +153,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{View Course Dashboard (Student)}
+\section{View Course Dashboard (Student)}
 \begin{itemize}
     \item \textbf{Overview}: Use Case to view the dashboard of a specific course the student has enrolled for.
     \item \textbf{Primary Actor}: Student
@@ -179,7 +171,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{View Progress}
+\section{View Progress}
 \begin{itemize}
     \item \textbf{Overview}: Use Case to view the progress of the student, i.e., marks, grades, attendance etc. in the chosen course.
     \item \textbf{Primary Actor}: Student
@@ -198,7 +190,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Create Course}
+\section{Create Course}
 \begin{itemize}
     \item \textbf{Overview}: This use case describes how a professor can create a course for the upcoming semester.
     \item \textbf{Primary Actor}: Professor
@@ -213,7 +205,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
     \item \textbf{Includes}: Login
 \end{itemize}
 
-\subsection{View Created Courses}
+\section{View Created Courses}
 \begin{itemize}
     \item \textbf{Overview}: Use case for a professor to view all courses they have created, to choose which one to manage.
     \item \textbf{Primary Actor}: Professor
@@ -228,7 +220,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
     \item \textbf{Includes}: Login.
 \end{itemize}
 
-\subsection{View Course Dashboard (Professor)}
+\section{View Course Dashboard (Professor)}
 \begin{itemize}
     \item \textbf{Overview}: Use Case to view the dashboard of a specific course the professor has created.
     \item \textbf{Primary Actor}: Professor
@@ -246,7 +238,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Create Assignment}
+\section{Create Assignment}
 \begin{itemize}
     \item \textbf{Overview}: This use case describes how a professor can create an assignment for students taking up a specific course.
     \item \textbf{Primary Actor}: Professor
@@ -265,7 +257,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Generate Report}
+\section{Generate Report}
 \begin{itemize}
     \item \textbf{Overview}: Use Case to view the report of a specific course the professor has created.
     \item \textbf{Primary Actor}: Professor
@@ -284,7 +276,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Make a General Announcement}
+\section{Make a General Announcement}
 \begin{itemize}
     \item \textbf{Overview}: This use case describes how the system administrator can make a general announcement for the entire system.
     \item \textbf{Primary Actor}: System Administrator
@@ -301,7 +293,7 @@ The use case diagram proposed for the Online Course Reservation System, based on
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Approve/Decline New Course}
+\section{Approve/Decline New Course}
 \begin{itemize}
     \item \textbf{Overview}: This use case describes how the system administrator can either approve or decline a new course created by the professor.
     \item \textbf{Primary Actor}: System Administrator

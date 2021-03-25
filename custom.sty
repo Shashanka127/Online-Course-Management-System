@@ -1,0 +1,27 @@
+%% Identification
+%% The package identifies itself and the LaTeX version needed
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{custom}[25/03/2021 Commands & Environment Package]
+
+%% Body of the package, most of the declarations appear here.
+\newcommand{\documentheader}[3]{
+    \title {
+        {\large \textsc{UCS1617 - Mini Project}}\\
+        ---------\\
+        {\Huge \textbf{Online Course Reservation System}}\\
+        ---\\
+        {\Large \textbf{#1}}\\
+        {\normalsize \textsc{#2}}\\
+        ---------\\
+    }
+    
+    \author {
+        \textsc{Shashanka Venkatesh - 185001145}
+        \and
+        \textsc{Shri Charan RS - 185001147}
+        \and
+        \textsc{Sparsh Gupta - 185001160}
+    }
+    
+    \date{\normalsize{\textsl{#3}}}
+}

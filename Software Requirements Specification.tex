@@ -1,21 +1,14 @@
-\documentclass[12pt, a4]{article}
+\documentclass[12pt, a4]{report}
 \usepackage[utf8]{inputenc}
 \usepackage{fullpage}
 \usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{custom}
 
-% --------------------------------------------------------------------------------------------------
-% --------------------------------------------------------------------------------------------------
+\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge}
 
-% Document Header
-\title{{\large \textsc{UCS1617 - Mini Project}}\\---------\\\textbf{\huge{Online Course Reservation System}}\\---\\\textbf{Software Requirements Specification}}
-\author {
-  \textsc{Shashanka Venkatesh - 185001145}
-  \and
-  \textsc{Shri Charan RS - 185001147}
-  \and
-  \textsc{Sparsh Gupta - 185001160}
-}
-\date{\normalsize{\textsl{9$^{th}$ February, 2021}}}
+% Inserting Document Header
+\documentheader{SOFTWARE REQUIREMENTS SPECIFICATION}{Version 1.0}{9$^{th}$ February, 2021}
 
 \begin{document}
 \maketitle
@@ -26,7 +19,7 @@
 % --------------------------------------------------------------------------------------------------
 
 \newpage
-\section{Introduction}
+\chapter{Introduction}
 Managing Course Registrations, monitoring of students' performance in each course and generating reports are being done on paper since the beginning of schooling. This is time-consuming, cumbersome, hard to maintain in the long-term. This is something that can be automated with a simple-to-use interface by using an Online Course Reservation System.
 \\\\
 This Online Course Reservation System will allow students to search and register for courses offered by the university professors. The students will be able to view important details such as progress, grades, attendance etc. for each course they have registered for.
@@ -34,34 +27,34 @@ The professors will be able to set the curriculum, the lesson plan and the struc
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Purpose}
+\section{Purpose}
 The purpose of Software Requirements Specification (SRS) document is to describe the external behavior of the Online Course Reservation System. Requirements Specification defines and describes the operations, interfaces, performance, and quality assurance requirements of the Online Course Reservation System. The document also describes the nonfunctional requirements such as the user interfaces.
 It also describes the design constraints that are to be considered when the system is to be designed, and other factors necessary to
 provide a complete and comprehensive description of the requirements for the software. The Software Requirements Specification (SRS) captures the complete software requirements for the system.
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Scope}
+\section{Scope}
 The Software Requirements Specification captures all the requirements in a single document. The System provides students the ability to register for courses online as well as monitor their performance in assignments and tests of the courses they have registered for. It allows professors an easy way to manage all the classes that they handle, and have a clear idea of how their students in each course and class are performing, using automatically created reports.
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Overview}
+\section{Overview}
 The SRS will provide a detailed description of the Online Course Reservation System. This document will provide the outline of the requirements, overview of the characteristics and constraints of the system.\\
-\subsubsection{Section 2} This section of the SRS will provide an overall description of the product with items such as Product Perspective, Product Functions, User Characteristics, Constraints, Assumptions \& Dependencies and Requirements.
-\subsubsection{Section 3} This section of SRS contains all the software requirements mentioned in section 2 in detail, sufficient enough to enable designers to design the system to satisfy the requirements and testers to test if the System satisfies those requirements. 
+\subsection{Section 2} This section of the SRS will provide an overall description of the product with items such as Product Perspective, Product Functions, User Characteristics, Constraints, Assumptions \& Dependencies and Requirements.
+\subsection{Section 3} This section of SRS contains all the software requirements mentioned in section 2 in detail, sufficient enough to enable designers to design the system to satisfy the requirements and testers to test if the System satisfies those requirements. 
 
 % --------------------------------------------------------------------------------------------------
 % --------------------------------------------------------------------------------------------------
 
-\section{Overall Description}
+\chapter{Overall Description}
 
-\subsection{Product perspective}
+\section{Product perspective}
 The Online Course reservation system is automated system where professors can create and manage courses and students can register for them. This is proposed for automating the student’s course registration and monitoring. The Online Course Reservation System acts as an interface between the Students, Professors and the System Administrator.
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Product Functions}
+\section{Product Functions}
 The Online Course Reservation system acts as an interface between the Students, System Administrator and the Professors.
 \\\\
 The major functions of The System:
@@ -73,7 +66,7 @@ The major functions of The System:
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{User Characteristics}
+\section{User Characteristics}
 \begin{itemize}
     \item \textbf{Student} - They register for courses, submit assignments posted by the professor handling the course and take up tests posted online.
     \item \textbf{Professor} - They create courses, assignments and tests. They monitor and manage all courses handled by them.
@@ -82,7 +75,7 @@ The major functions of The System:
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Constraints}
+\section{Constraints}
 \begin{itemize}
     \item The applicants require a computer to access course content, submit assignments and take up tests.
     \item Although the security is given high importance, there is always a chance of intrusion in the web world which requires constant monitoring.
@@ -90,7 +83,7 @@ The major functions of The System:
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Assumptions And Dependencies}
+\section{Assumptions And Dependencies}
 \begin{itemize}
     \item The users have sufficient knowledge of computers.
     \item The users know the English language, as the user interface will be provided in English.
@@ -100,17 +93,17 @@ The major functions of The System:
 % --------------------------------------------------------------------------------------------------
 % --------------------------------------------------------------------------------------------------
 
-\section{Specific Requirements}
+\chapter{Specific Requirements}
 This section describes in detail all the functional requirements.
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Functionality}
+\section{Functionality}
 
-\subsubsection{Login Capabilities}
+\subsection{Login Capabilities}
 The System shall provide Login capabilities for the Students, Professors and the System Administrator at all times, except during maintenance.
 
-\subsubsection{Specifically for Students}
+\subsection{Specifically for Students}
 \begin{itemize}
     \item Course Catalog  of all courses the student is eligible for. The Student should be able to sort/filter the listings
     \item Course Catalog of Courses that they are currently enrolled in.
@@ -120,7 +113,7 @@ The System shall provide Login capabilities for the Students, Professors and the
     \item A general assignments \& tests page, where all assignments due/overdue and upcoming tests across all courses that the student has taken should be displayed.
 \end{itemize}
 
-\subsubsection{Specifically for Professors}
+\subsection{Specifically for Professors}
 \begin{itemize}
     \item Catalog of all courses currently handled by them right after the login page to let them choose which course they want to manage.
     \item Course Creation Page, in case the professor wants to create a new Course for the upcoming Semester.
@@ -129,7 +122,7 @@ The System shall provide Login capabilities for the Students, Professors and the
     \item Course Report Generation Page where the professor can generate detailed reports on the performance of the students taking up his course. The report should contain details such as attendance of all the students, scores and grades of all students, statistical data such as the mean \& standard deviation of the students' scores.
 \end{itemize}
 
-\subsubsection{Specifically for System Administrator}
+\subsection{Specifically for System Administrator}
 \begin{itemize}
     \item Details pages for all Professors and Students
     \item General Announcements Page that can be read by everyone in the System.
@@ -138,7 +131,7 @@ The System shall provide Login capabilities for the Students, Professors and the
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Usability}
+\section{Usability}
 \begin{itemize}
     \item The system shall allow the users to access the system from the Internet. The system uses a web browser as an interface.
     \item Since all users are familiar with the general usage of browsers, no specific training is required.
@@ -147,7 +140,7 @@ The System shall provide Login capabilities for the Students, Professors and the
 
 % --------------------------------------------------------------------------------------------------
 
-\subsection{Interfaces}
+\section{Interfaces}
 The User interface of the system will include the following Pages:
 \begin{enumerate}
     \item Login page
