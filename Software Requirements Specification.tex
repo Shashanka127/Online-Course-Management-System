@@ -8,11 +8,10 @@
 \titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge}
 
 % Inserting Document Header
-\documentheader{SOFTWARE REQUIREMENTS SPECIFICATION}{Version 1.0}{9$^{th}$ February, 2021}
+\documentheader{SOFTWARE REQUIREMENTS SPECIFICATION}{Version 1.1}{30$^{th}$ March, 2021}
 
 \begin{document}
 \maketitle
-\newpage
 \tableofcontents
 
 % --------------------------------------------------------------------------------------------------
@@ -20,29 +19,47 @@
 
 \newpage
 \chapter{Introduction}
-Managing Course Registrations, monitoring of students' performance in each course and generating reports are being done on paper since the beginning of schooling. This is time-consuming, cumbersome, hard to maintain in the long-term. This is something that can be automated with a simple-to-use interface by using an Online Course Reservation System.
+Managing course registrations, monitoring of students' performance in each course and generating reports at colleges and universities are being done manually and majorly on paper. The student needs to check an information brochure, choose a course, and needs to physically go to the course registrar of the college to enroll in it. The registrar needs to ensure that the student is eligible to take up the courses they have chosen, and then enroll them in those courses by updating their database. Now, the professor needs to keep track of all his students using registers and also has to use separate software to keep track of grades of the students taking up their courses. This is time-consuming, cumbersome and hard to maintain in the long-term.
 \\\\
-This Online Course Reservation System will allow students to search and register for courses offered by the university professors. The students will be able to view important details such as progress, grades, attendance etc. for each course they have registered for.
-The professors will be able to set the curriculum, the lesson plan and the structure of the courses they are teaching. They will be able to create, collect and grade assignments \& tests for the students. They will be able to see useful statistical information about the students taking their course and review the performance of each student individually.
+This Online Course Reservation System aims to solve this by bringing the entire process online, eliminating physical involvement in the process as well as remove the need for a lot of paper work.
+The system will allow The professors will be able to set the syllabus, lesson plan and other details such as eligibility. They will be able to post announcements, create \& collect assignments and provide resources for the course. They can also grade students and generate reports.
+The students will be able to register for courses offered by the university professors. They will be able to access the course resources, submit assignments and monitor their progress in each course they take up. They will also be able to discuss and clarify doubts in a public forum created for each course.
 
 % --------------------------------------------------------------------------------------------------
 
 \section{Purpose}
 The purpose of Software Requirements Specification (SRS) document is to describe the external behavior of the Online Course Reservation System. Requirements Specification defines and describes the operations, interfaces, performance, and quality assurance requirements of the Online Course Reservation System. The document also describes the nonfunctional requirements such as the user interfaces.
-It also describes the design constraints that are to be considered when the system is to be designed, and other factors necessary to
-provide a complete and comprehensive description of the requirements for the software. The Software Requirements Specification (SRS) captures the complete software requirements for the system.
+It also describes the design constraints that are to be considered when the system is to be designed, and other factors necessary to provide a complete and comprehensive description of the requirements for the software. The Software Requirements Specification (SRS) captures the complete software requirements for the system.
 
 % --------------------------------------------------------------------------------------------------
 
 \section{Scope}
-The Software Requirements Specification captures all the requirements in a single document. The System provides students the ability to register for courses online as well as monitor their performance in assignments and tests of the courses they have registered for. It allows professors an easy way to manage all the classes that they handle, and have a clear idea of how their students in each course and class are performing, using automatically created reports.
+The Online Course Reservation System provides students the ability to register for courses online as well as monitor their performance in assignments and tests of the courses they have registered for. It allows professors an easy way to manage all the classes that they handle, and have a clear idea of how their students in each course and class are performing, using automatically created reports.
+The system is supposed to have the following features:
+
+\begin{enumerate}
+    \item The system allows Students, Professors and a System Administrator to logon to the system all day long.
+    \item The professors of the university will be able to create and manage courses.
+    \item They can set the syllabus, lesson plan and other details such as eligibility during creation.
+    \item They will be able to post announcements, create \& collect assignments and provide resources for the course.
+    \item They will be able to assign grades for students for the assignments, and also for tests that may be conducted offline.
+    \item They will be able to generate a report for any course they are managing at any point of time.
+    \item The students will be able to register for courses offered by the university professors.
+    \item They will be able to access the course resources, submit assignments and monitor their progress in each course they take up.
+    \item They will be able to discuss and clarify doubts in a public forum created for each course.
+    \item The system administrator will have the job of maintaining the system throughout its working.
+    \item They will be able to approve or decline courses that have been created by professors, and will also be able to do the same to registrations made by students.
+    \item They will have direct access to the database as well, and can manage all the users that are registered on the system.
+\end{enumerate}
+
+The features that are described in this document are used in the future phases of the software development cycle. The features described here meet the needs of all the users. The success criteria for the system is based in the level up to which the features described in this document are implemented in the system.
 
 % --------------------------------------------------------------------------------------------------
 
 \section{Overview}
 The SRS will provide a detailed description of the Online Course Reservation System. This document will provide the outline of the requirements, overview of the characteristics and constraints of the system.\\
-\subsection{Section 2} This section of the SRS will provide an overall description of the product with items such as Product Perspective, Product Functions, User Characteristics, Constraints, Assumptions \& Dependencies and Requirements.
-\subsection{Section 3} This section of SRS contains all the software requirements mentioned in section 2 in detail, sufficient enough to enable designers to design the system to satisfy the requirements and testers to test if the System satisfies those requirements. 
+\subsection{Section 2: Overall Description} This section of the SRS will provide an overall description of the product with items such as Product Perspective, Product Functions, User Characteristics, Constraints, Assumptions \& Dependencies and Requirements.
+\subsection{Section 3: Specific Requirements} This section of SRS contains all the software requirements mentioned in section 2 in detail, sufficient enough to enable designers to design the system to satisfy the requirements and testers to test if the System satisfies those requirements. 
 
 % --------------------------------------------------------------------------------------------------
 % --------------------------------------------------------------------------------------------------
@@ -50,35 +67,47 @@ The SRS will provide a detailed description of the Online Course Reservation Sys
 \chapter{Overall Description}
 
 \section{Product perspective}
-The Online Course reservation system is automated system where professors can create and manage courses and students can register for them. This is proposed for automating the student’s course registration and monitoring. The Online Course Reservation System acts as an interface between the Students, Professors and the System Administrator.
+The Online Course Reservation System that facilitates the management of courses in a university.
+\\\\
+The professors of the university will be able to create and manage courses. They can set the syllabus, lesson plan and other details such as eligibility during creation. They will be able to post announcements, create \& collect assignments and provide resources for the course. They can also grade students and generate reports.
+\\\\
+The students will be able to register for courses offered by the university professors. They will be able to access the course resources, submit assignments and monitor their progress in each course they take up. They will also be able to discuss and clarify doubts in a public forum created for each course.
+\\\\
+The system administrator's role is minor in volume but vital in the entire working of the system. They have the capability to approve/decline courses created by the professors to provide human monitoring of the creating of courses, to account for many possibilities of human error. They can also deregister a student from a course if need be under some circumstances.
 
 % --------------------------------------------------------------------------------------------------
 
+\newpage
 \section{Product Functions}
-The Online Course Reservation system acts as an interface between the Students, System Administrator and the Professors.
+The Online Course Reservation system acts as an interface between the Students and the Professors, with minor human monitoring by the system administrator.
 \\\\
-The major functions of The System:
+The major functions of The Online Course Registration System include:
 \begin{enumerate}
-    \item Students should be able to register, monitor their performance and manage courses that they have registered for.
     \item Professors should be able to create, manage and monitor multiple courses courses that they have offered.
-    \item The System Administrator should be able to manage all users and courses of the System.
+    \item Professors should be able to post announcements, create \& collect assignments and provide resources for the course.
+    \item Professors should also be able to grade students and generate reports.
+    \item Students should be able to register \& monitor their performance and manage courses that they have registered for. 
+    \item Students should be able to access the course resources, submit assignments and monitor their progress in each course they take up.
+    \item Students should be able to discuss and clarify doubts the public forum of the course.
+    \item The System Administrator should be able to approve/decline courses created by the professors \item The System Administrator should be able to can also deregister a student from a course.
 \end{enumerate}
 
 % --------------------------------------------------------------------------------------------------
 
 \section{User Characteristics}
-\begin{itemize}
-    \item \textbf{Student} - They register for courses, submit assignments posted by the professor handling the course and take up tests posted online.
-    \item \textbf{Professor} - They create courses, assignments and tests. They monitor and manage all courses handled by them.
-    \item \textbf{System Administrator} - He/She has the privileges to approve the issue of course, to delete a course upon request from the handling Professor. He/She also has the privileges of creating a new account for a Student/Professor, as well as deltion of accounts.
-\end{itemize}
+The users of the system are students \& professors of the university and the system administrator.
+The students \& professors are assumed to have basic knowledge of the computers and Internet browsing.
+The system administrator to have more knowledge of the internals of the system and is able to rectify the small problems that may arise due to disk crashes, power failures and other catastrophes to maintain the system. The proper user interface, users manual, online help and the guide to install and maintain the system.
 
 % --------------------------------------------------------------------------------------------------
 
+\section{Operating Environment}
+The Online Course Reservation System will be implemented as a WebApp, which can be accessed using any internet browser that is up-to-date and supports the HTML5, CSS3 and JS6. It is therefore platform-independent, and can be run on any Operating System that has support from any major Web Browser such as Google Chrome, Firefox, Opera, Microsoft Edge etc.
+
 \section{Constraints}
 \begin{itemize}
-    \item The applicants require a computer to access course content, submit assignments and take up tests.
-    \item Although the security is given high importance, there is always a chance of intrusion in the web world which requires constant monitoring.
+    \item The applicants require a computer with a working internet connection to access the Online Course Reservation System, access course content, submit assignments etc.
+    \item The system must be up to date and support HTML5, CSS3 and JS6 in order for the website to render as intended and be used without any hassle.
 \end{itemize}
 
 % --------------------------------------------------------------------------------------------------
@@ -86,8 +115,8 @@ The major functions of The System:
 \section{Assumptions And Dependencies}
 \begin{itemize}
     \item The users have sufficient knowledge of computers.
-    \item The users know the English language, as the user interface will be provided in English.
-    \item The applicants may be required to scan the documents and send.
+    \item The users know the English language, as the user interface will be entirely in English.
+    \item The users have sufficient knowledge of using Google Drive Storage, since that will be used for submission of assignments.
 \end{itemize}
 
 % --------------------------------------------------------------------------------------------------
