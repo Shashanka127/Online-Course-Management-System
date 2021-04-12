@@ -2,13 +2,14 @@
 %% The package identifies itself and the LaTeX version needed
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{custom}[25/03/2021 Commands & Environment Package]
+\usepackage{etoolbox}
 
-%% Body of the package, most of the declarations appear here.
-\newcommand{\documentheader}[3]{
+%% Command for Document Header
+\newcommand{\documentheader}[3] {
     \title {
         {\large \textsc{UCS1617 - Mini Project}}\\
         ---------\\
-        {\Huge \textbf{Online Course Reservation System}}\\
+        {\Huge \textbf{Online Course Management System}}\\
         ---\\
         {\Large \textbf{#1}}\\
         {\normalsize \textsc{Version #2}}\\
@@ -24,4 +25,24 @@
     }
     
     \date{\normalsize{\textsl{#3}}}
+}
+
+%% Command for a Use Case
+\newcommand{\usecase}[9] {
+    \section{#1}
+    \textbf{Overview:}#2
+    \\\\
+    \textbf{Actors:}#3
+    \\\\
+    \textbf{Basic Flow:}#4
+    \\\\
+    \notblank{#5}{\textbf{Alternate Flows:}#5}
+    \\\\
+    \notblank{#6}{\textbf{Pre-Conditions:}#6}
+    \\\\
+    \notblank{#7}{\textbf{Post-Conditions:}#7}
+    \\\\
+    \notblank{#8}{\textbf{Includes:}#8}
+    \\\\
+    \notblank{#9}{\textbf{Extends:}#9}
 }

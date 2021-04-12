@@ -9,7 +9,7 @@
 \titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge}
 
 % Inserting Document Header
-\documentheader{USE CASE DOCUMENT}{Version 1.0}{22$^{nd}$ February, 2021}
+\documentheader{USE CASE DOCUMENT}{1.1}{22$^{nd}$ February, 2021}
 
 \begin{document}
 \maketitle
@@ -20,10 +20,12 @@
 
 \newpage
 \chapter{Use Case Diagram}
-The use case diagram proposed for the Online Course Reservation System, based on the Software Requirements Specification (SRS) is shown below.
+The Use Case Diagram proposed for the Online Course Management System, based on the Software Requirements Specification (SRS) Version 1.1 is shown below.
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{Diagrams/Use Case Diagram.png}
+    \begin{center}
+        \includegraphics[width=\textwidth]{Diagrams/Use Case Diagram Version 1.1.png}
+        \caption{Use Case Diagram Version 1.1}
+    \end{center}
 \end{figure}
 
 % --------------------------------------------------------------------------------------------------
@@ -34,285 +36,478 @@ The use case diagram proposed for the Online Course Reservation System, based on
 
 % --------------------------------------------------------------------------------------------------
 
-\section{Login}
-\begin{itemize}
-    \item \textbf{Overview}: This use case describes how a student, professor and system admin logs into the Course Reservation System.
-    \item \textbf{Primary Actors}: Student, Professor and System Administrator
-    \item \textbf{Secondary Actors}: User Database
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to log into the Course Reservation System.
-        \begin{enumerate}
-            \item The system requests that the actor enter his/her name and password.
-            \item The actor enters his/her name and password.
-            \item The system validates the entered name and password and logs the actor into the system.
-        \end{enumerate}
-    \item \textbf{Alternative Flows}:
-        \begin{enumerate}
-            \item Invalid Name / Password \newline
-            If in the Basic Flow the actor enters an invalid name and/or password, the system displays an error message. The actor can choose to either return to the beginning of the Basic Flow or cancel the login, at which point the use case ends.
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: None
-    \item \textbf{Post-Conditions}: If the use case was successful, the actor is now logged into the system. If not the system state is unchanged.
-    \item \textbf{Includes}: Check User Database
-    \item \textbf{Extends}: View General announcements.
-\end{itemize}
+\usecase {Login}
+{ % Overview
+This use case describes how a user (Student, Professor or System Admin) can log into the system to use it
+}
+{ % Actors
+Student, Professor, System Admin
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The user enters their login credentials (Username \& Password).
+    \item The system authenticates the user using the internal database.
+    \item The user is logged into the system.
+\end{enumerate}
+}
+{ % Alternate Flows
+\begin{enumerate}
+    \item \textbf{The username doesn't exist}
+            \begin{enumerate}
+                \item The system redirects to the Registration Page.
+            \end{enumerate}
+    \item \textbf{The username exists, but the password is incorrect}
+            \begin{enumerate}
+                \item The system displays an error message and resets the Login Page.
+                \item The user re-initiates the use-case.
+            \end{enumerate}
+\end{enumerate}
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+The user is successfully logged into the system.
+}
+{ % Includes
+}
+{ % Extends
+}
 
 % --------------------------------------------------------------------------------------------------
 
-\section{Check User Database}
-\begin{itemize}
-    \item \textbf{Overview}: Use case to Check User database.
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to log into the Course Reservation System.
-        \begin{enumerate}
-            \item Give the User ID and Password
-            \item Check if the user exists and the if password matches.
-            \item Validate User entry
-        \end{enumerate}
-    \item \textbf{Alternative Flows}:
-        \begin{enumerate}
-            \item Invalid User ID: Produce Error: Invalid User ID Code
-            \item Incorrect Password: Produce Error: Incorrect Password
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: None
-    \item \textbf{Post-Conditions}: User is validated to login if success, not validated if any error is produced.
-\end{itemize}
+\usecase {Register}
+{ % Overview
+This use case describes how a user (Student, Professor or System Admin) can register an account in the System.
+}
+{ % Actors
+Student, Professor, System Admin
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The user enters their details and a chosen password.
+    \item The system adds the user to the database.
+    \item The system redirects back to the login page.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+The user must not already have an account and should wish to create one in the system.
+}
+{ % Post-Conditions
+The user is successfully registered into the system, and can now login anytime later.
+}
+{ % Includes
+}
+{ % Extends
+Login
+}
 
 % --------------------------------------------------------------------------------------------------
 
-\section{View General Announcements}
-\begin{itemize}
-    \item \textbf{Overview}: Use case to View General announcements made for the entire University.
-    \item \textbf{Primary Actors}: Student, Professor and System Administrator
-    \item \textbf{Secondary Actors}: Course Details Page
-    \item \textbf{Basic Flow}: This use case starts upon request from any of the primary actors after they log into the system.
-        \begin{enumerate}
-            \item The system retrieves all general announcements from the Course Details Database and displays them.
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: The user must have logged into the system.
-    \item \textbf{Post-Conditions}: None
-    \item \textbf{Extends}: Login.
-\end{itemize}
+\usecase {Register for a course}
+{ % Overview
+This use case describes how a Student can register for a course.
+}
+{ % Actors
+Student
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The system displays all available courses.
+    \item The student chooses one of the courses.
+    \item The system displays the details of the chosen course.
+    \item The students confirms registration and the database is updated.
+\end{enumerate}
+}
+{ % Alternate Flows
+\begin{enumerate}
+    \item The student chooses not to register and goes back to the course catalog.
+\end{enumerate}
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+The student is successfully registered to their chosen course.
+}
+{ % Includes
+}
+{ % Extends
+}
 
 % --------------------------------------------------------------------------------------------------
 
-\section{View Available Courses}
-\begin{itemize}
-    \item \textbf{Overview}: Use Case to view all available courses that the student can enroll for.
-    \item \textbf{Primary Actor}: Student
-    \item \textbf{Secondary Actor}: Course Database
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to enroll in a new course.
-        \begin{enumerate}
-            \item The system retrieves all available courses from the Course Database
-            \item The system displays them to the student allowing them to search and sort the list
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: None
-    \item \textbf{Post-Conditions}: None
-\end{itemize}
-% --------------------------------------------------------------------------------------------------
-
-\section{Register for a Course}
-\begin{itemize}
-    \item \textbf{Overview}: This use case describes how a student registers for a chosen course.
-    \item \textbf{Primary Actor}: Student
-    \item \textbf{Secondary Actors}: Course Details Database
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to register for a course chosen from the available course list.
-        \begin{enumerate}
-            \item The user chooses the course they want to enroll in.
-            \item The system retrieves the Course details and asks for confirmation.
-            \item Login to the system if not already logged in.
-            \item The Student confirms enrollment.
-            \item The system updates the Course Details database with the new student.
-        \end{enumerate}
-    \item \textbf{Alternative Flows}:
-        \begin{enumerate}
-            \item The Student cancels enrollment.
-            \item The System reverts back to displaying available courses.
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: Student must login to the system.
-    \item \textbf{Post-Conditions}: If the use case was successful, the student is now enrolled in the system. If not the system state is unchanged.
-    \item \textbf{Includes}: Login
-    \item \textbf{Extends}: View Available Courses.
-\end{itemize}
+\usecase {Choose Enrolled Course}
+{ % Overview
+This use case describes how a Student can choose to manage a course they are enrolled in.
+}
+{ % Actors
+Student
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The system displays all courses the student has enrolled in.
+    \item The student chooses one of the courses.
+    \item The system redirects student to the dashboard of the course.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+The dashboard of the chosen course is displayed to the student.
+}
+{ % Includes
+}
+{ % Extends
+}
 
 % --------------------------------------------------------------------------------------------------
 
-\section{View Enrolled Courses}
-\begin{itemize}
-    \item \textbf{Overview}: Use Case to view all available courses that the student has already enrolled for.
-    \item \textbf{Primary Actor}: Student
-    \item \textbf{Secondary Actor}: Course Details Database
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to view all their enrolled courses.
-        \begin{enumerate}
-            \item Login to the system if not already logged in.
-            \item The system retrieves all courses that the student is enrolled in from the Course Details Database
-            \item The system displays them to the student.
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: Student must login to the system.
-    \item \textbf{Post-Conditions}: None
-    \item \textbf{Includes}: Login.
-\end{itemize}
+\usecase {Make Forum Post}
+{ % Overview
+This use case describes how a Student can make a post in the Course Public Forum.
+}
+{ % Actors
+Student
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The student types and sends a message they want to send on the course forum.
+    \item The system saves the message to the database and displays it on the forum.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+A forum post is made by the student that can be viewed by other students taking the course as well as the professor that is handling the course.
+}
+{ % Includes
+Choose Enrolled Course
+}
+{ % Extends
+}
 
 % --------------------------------------------------------------------------------------------------
 
-\section{View Course Dashboard (Student)}
-\begin{itemize}
-    \item \textbf{Overview}: Use Case to view the dashboard of a specific course the student has enrolled for.
-    \item \textbf{Primary Actor}: Student
-    \item \textbf{Secondary Actor}: Course Details Database
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to go to the Dashboard of a course they have enrolled in.
-        \begin{enumerate}
-            \item The system retrieves information about the course and the student from the Course Details Database
-            \item The system displays the information to the student.
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: Student must login to the system.
-    \item \textbf{Post-Conditions}: None
-    \item \textbf{Includes}: None
-    \item \textbf{Extends}: View Enrolled Courses.
-\end{itemize}
+\newpage
+\usecase {Submit Assignment}
+{ % Overview
+This use case describes how a Student can submit an assignment.
+}
+{ % Actors
+Student
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The system displays all assignments pending for the course.
+    \item The student chooses one of the assignments.
+    \item The system displays all details of the assignment.
+    \item The students enters a Google Drive link to their assignment submission.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+The student successfully makes a submission to the assignment.
+}
+{ % Includes
+Choose Enrolled Course
+}
+{ % Extends
+}
 
 % --------------------------------------------------------------------------------------------------
 
-\section{View Progress}
-\begin{itemize}
-    \item \textbf{Overview}: Use Case to view the progress of the student, i.e., marks, grades, attendance etc. in the chosen course.
-    \item \textbf{Primary Actor}: Student
-    \item \textbf{Secondary Actors}: Course Details Database
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to view their progress in a chosen course.
-        \begin{enumerate}
-            \item The system retrieves information about the student's progress from the Course Details Database
-            \item The system displays the information to the student.
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: Student must login to the system.
-    \item \textbf{Post-Conditions}: None
-    \item \textbf{Extends}: View Dashboard.
-\end{itemize}
+\usecase {View Progress}
+{ % Overview
+This use case describes how a Student can view their progress in any chosen course.
+}
+{ % Actors
+Student
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The system retrieves scores issued by the professor handling the course.
+    \item The assignment scores of the student are displayed.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+}
+{ % Includes
+Choose Enrolled Course
+}
+{ % Extends
+}
 
 % --------------------------------------------------------------------------------------------------
 
-% --------------------------------------------------------------------------------------------------
-
-\section{Create Course}
-\begin{itemize}
-    \item \textbf{Overview}: This use case describes how a professor can create a course for the upcoming semester.
-    \item \textbf{Primary Actor}: Professor
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to create a new course for the upcoming semester.
-        \begin{enumerate}
-            \item The System requests the actor to enter the Name and syllabus of the new course.
-            \item The System requests the actor to enter the intended semester when the students can take up the course
-            \item The System creates a request to the system administrator to approve the course so that it can be added to the database
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: Professor must be logged into the system.
-    \item \textbf{Post-Conditions}: A new course is sent for approval from the system administrator.
-    \item \textbf{Includes}: Login
-\end{itemize}
-
-\section{View Created Courses}
-\begin{itemize}
-    \item \textbf{Overview}: Use case for a professor to view all courses they have created, to choose which one to manage.
-    \item \textbf{Primary Actor}: Professor
-    \item \textbf{Secondary Actor}: Course Database
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to view all the courses they have created in order to manage any of them.
-        \begin{enumerate}
-            \item Gets \& Validates the Professor ID.
-            \item Displays the catalog of all the courses and handled by the Professor.
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: Professor must login to the system.
-    \item \textbf{Post-Conditions}: None
-    \item \textbf{Includes}: Login.
-\end{itemize}
-
-\section{View Course Dashboard (Professor)}
-\begin{itemize}
-    \item \textbf{Overview}: Use Case to view the dashboard of a specific course the professor has created.
-    \item \textbf{Primary Actor}: Professor
-    \item \textbf{Secondary Actor}: Course Details Database
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to go to the Dashboard of a course they have created.
-        \begin{enumerate}
-            \item The system retrieves information about the course from the Course Details Database
-            \item The system displays the information to the professor.
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: Professor must login to the system.
-    \item \textbf{Post-Conditions}: None
-    \item \textbf{Includes}: None
-    \item \textbf{Extends}: View Created Courses.
-\end{itemize}
+\usecase {Create Course}
+{ % Overview
+This use case describes how a Professor can create a new course.
+}
+{ % Actors
+Professor
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The professor enters all details relating to the course.
+    \item The system creates a new course and adds it to the wait-list for approval by the System Administrator.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+}
+{ % Includes
+}
+{ % Extends
+}
 
 % --------------------------------------------------------------------------------------------------
 
-\section{Create Assignment}
-\begin{itemize}
-    \item \textbf{Overview}: This use case describes how a professor can create an assignment for students taking up a specific course.
-    \item \textbf{Primary Actor}: Professor
-    \item \textbf{Secondary Actor}: Course Details Database
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to create a new assignment for the students of the chosen course.
-        \begin{enumerate}
-            \item The System requests the actor to enter the Assignment Problem as a PDF.
-            \item The System requests the actor to enter the deadline for the assignment.
-            \item The System generates a post for the assignment given and posts it in the dashboard of the course
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: Professor must be logged into the system.
-    \item \textbf{Post-Conditions}: A new assignment is issued and the details are posted in the dashboard of the course for all students to start working on it.
-    \item \textbf{Includes}: Login
-    \item \textbf{Extends}: View Course Dashboard (Professor).
-\end{itemize}
+\usecase {Choose Created Course}
+{ % Overview
+This use case describes how a Professor can choose to manage a course created by them.
+}
+{ % Actors
+Professor
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The system retrieves all courses created by the professor from the database and displays them.
+    \item The professor chooses on of the courses.
+    \item The system redirects to the dashboard of the course.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+The dashboard of the chosen course is displayed to the professor.
+}
+{ % Includes
+}
+{ % Extends
+}
 
 % --------------------------------------------------------------------------------------------------
 
-\section{Generate Report}
-\begin{itemize}
-    \item \textbf{Overview}: Use Case to view the report of a specific course the professor has created.
-    \item \textbf{Primary Actor}: Professor
-    \item \textbf{Secondary Actor}: Course Details Database
-    \item \textbf{Basic Flow}: This use case starts when an actor wants to generate a report of all students that have taken the course.
-        \begin{enumerate}
-            \item The System retrieves all information about the course from the Course Details Database.
-            \item The System calculates several statistical values for the marks and grades obtained by the students in the course such as mean, median etc.
-            \item The System generates a report and displays it to the actor.
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: Professor must be logged into the system.
-    \item \textbf{Post-Conditions}: A report is generated and displayed for the Professor
-    \item \textbf{Includes}: Login
-    \item \textbf{Extends}: View Course Dashboard (Professor).
-\end{itemize}
+\usecase {Make Announcement}
+{ % Overview
+This use case describes how a Professor can make an announcement in the Course Forum.
+}
+{ % Actors
+Professor
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The professor enters the desired announcement to be made into the forum.
+    \item The system creates a forum post and updates the database.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+An announcement is made by the professor on the forum that can be viewed by all students taking the course.
+}
+{ % Includes
+Choose Created Course
+}
+{ % Extends
+}
 
 % --------------------------------------------------------------------------------------------------
 
-\section{Make a General Announcement}
-\begin{itemize}
-    \item \textbf{Overview}: This use case describes how the system administrator can make a general announcement for the entire system.
-    \item \textbf{Primary Actor}: System Administrator
-    \item \textbf{Secondary Actor}: Course Details Database
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to make a new General Announcement.
-        \begin{enumerate}
-            \item The system administrator writes the General Announcement
-            \item The System creates a post and displays the announcement in the General Announcements page (which is treated as a course with every student enrolled in it, and under every professor)
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: System Administrator must be logged into the system.
-    \item \textbf{Post-Conditions}: A new general announcement is made.
-    \item \textbf{Includes}: Login
-\end{itemize}
+\usecase {Create New Assignment}
+{ % Overview
+This use case describes how a Professor can create a new Assignment and post it.
+}
+{ % Actors
+Professor
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The professor enters the details of the course along with any resource links necessary.
+    \item The system creates an assignment activity and posts it in the assignments tab of the course dashboard.
+    \item The system also makes an announcement in the forum regarding the assignment.
+    \item The assignment will accept submissions from the students taking the course.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+An assignment is created and posted for the students to work on and submit.
+}
+{ % Includes
+Choose Created Course
+}
+{ % Extends
+}
 
 % --------------------------------------------------------------------------------------------------
 
-\section{Approve/Decline New Course}
-\begin{itemize}
-    \item \textbf{Overview}: This use case describes how the system administrator can either approve or decline a new course created by the professor.
-    \item \textbf{Primary Actor}: System Administrator
-    \item \textbf{Secondary Actor}: Courses Database and Course Details Database
-    \item \textbf{Basic Flow}: This use case starts when an actor wishes to approve or decline a course pending approval in the system.
-        \begin{enumerate}
-            \item The System requests the system administrator to choose the pending course to take action for
-            \item The System displays information of the course that the professor has entered.
-            \item The System Administrator approves the course
-            \item The System updates the Course Database and the Course Details Database with the new course.
-        \end{enumerate}
-    \item \textbf{Alternative Flows}:
-        \begin{enumerate}
-            \item The System Administrator declines the course
-            \item The Professor is notified that the System Administrator has declined the course, the Databases remain unchanged
-        \end{enumerate}
-    \item \textbf{Pre-Conditions}: System Administrator must be logged into the system, and there must be pending courses to approve/decline.
-    \item \textbf{Post-Conditions}: If the use case was successful, the course is now added to the system and the Course Database and the Course Details Database are updated. If not the system state is unchanged.
-    \item \textbf{Includes}: Login
-\end{itemize}
+\usecase {Generate Performance report}
+{ % Overview
+This use case describes how a Professor can generate a performance report for any course handled by them.
+}
+{ % Actors
+Professor
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The system retrieves all assignment scores of students enrolled in the course.
+    \item The system generates a report of their performances and displays it to the professor.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+}
+{ % Includes
+Choose Created Course
+}
+{ % Extends
+}
+
+% --------------------------------------------------------------------------------------------------
+
+\newpage
+\usecase {Choose Assignment}
+{ % Overview
+This use case describes how a Professor can choose to manage an assignment.
+}
+{ % Actors
+Professor
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The professor chooses an assignment from the assignments tab.
+    \item The system retrieves all information about the assignment and all submissions made by students and displays them for the professor.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+}
+{ % Includes
+Choose Created Course
+}
+{ % Extends
+}
+
+% --------------------------------------------------------------------------------------------------
+
+\usecase {Grade Assignments}
+{ % Overview
+This use case describes how a Professor can grade grade submissions made by students to an assignment.
+}
+{ % Actors
+Professor
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The professor chooses an assignment from the assignments tab.
+    \item The system retrieves all information about the assignment and all submissions made by students and displays them for the professor.
+    \item The professor provides a score for each of the submissions.
+    \item The system saves the scores, updates the database and makes a forum post that the respective assignment has been graded along with the list of students whose submissions have been graded.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+}
+{ % Includes
+Choose Assignment
+}
+{ % Extends
+}
+
+% --------------------------------------------------------------------------------------------------
+
+\newpage
+\usecase {Approve/Decline Courses}
+{ % Overview
+This use case describes how the system administrator can either approve or decline a new course created by the professor.
+}
+{ % Actors
+System Administrator
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The system displays all courses waiting for approval.
+    \item The system administrator chooses one of the courses.
+    \item The system displays all details about the course.
+    \item The system administrator approves the course.
+    \item The system updates the database and adds the course to active courses.
+\end{enumerate}
+}
+{ % Alternate Flows
+\begin{enumerate}
+    \item The system administrator declines the course.
+    \item The system removes the course from the wait-list.
+\end{enumerate}
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+The courses is either approved or is declined.
+}
+{ % Includes
+}
+{ % Extends
+}
+
+% --------------------------------------------------------------------------------------------------
+
+\usecase {Manage Users}
+{ % Overview
+This use case describes how the system administrator can manage all users that are currently using the system.
+}
+{ % Actors
+System Administrator
+}
+{ % Basic Flow
+\begin{enumerate}
+    \item The system retrieves the details of all users from the database and displays them.
+    \item The system administrator can disable or delete any account in the list.
+    \item The system updates the database and restricts that user to login to the system.
+\end{enumerate}
+}
+{ % Alternate Flows
+}
+{ % Pre-Conditions
+}
+{ % Post-Conditions
+Any number of users' accounts may be disabled or deleted.
+}
+{ % Includes
+}
+{ % Extends
+}
+
+% --------------------------------------------------------------------------------------------------
 
 \end{document}
