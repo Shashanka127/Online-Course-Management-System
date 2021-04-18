@@ -95,6 +95,15 @@ def getcreatedcourses(name):
             courses_json.append({"name": course['name'], "description":course['description'],"students":course['students'],"professor":course['professor']})
     return json.dumps(courses_json)
 
+@app.route('/api/professorprofile/<username>')
+def professorprofile(username):
+    professor_json = []
+    if professor_records.find({}):
+        for professor in professor_records.find({"username":username}):
+            professor_json.append({"firstname": professor['firstname'], "lastname": professor['lastname'], "username": professor['username'], "password": professor['password'],"photourl":professor['photourl']})
+    return json.dumps(professor_json)
+
+
 @app.route('/api/deletecourse/<name>')
 def deletecourse(name):
     courses.remove({"name":name})
