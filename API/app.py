@@ -27,7 +27,7 @@ def getnames():
             names_json.append({"name": name['name'], "id": str(name['_id'])})
     return json.dumps(names_json)
 
-@app.route('/login/<username>&<password>/')
+@app.route('/api/studentlogin/<username>&<password>/')
 def login(username, password):
     success = student_records.count_documents({'username': username, 'password': password}) == 1
     return ({"success": success})
