@@ -119,7 +119,7 @@ export default function StudentHomepage() {
           {/* Replace with your content */}
           <div className="px-4 py-6 sm:px-0">
             <div className="border-4 border-dashed border-gray-200 rounded-lg p-3">
-              <Profile username={localStorage.getItem("username")} />
+              <Profile usertype="student" username={localStorage.getItem("username")} />
             </div>
           </div>
         </div>
