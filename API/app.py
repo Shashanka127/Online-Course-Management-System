@@ -32,7 +32,7 @@ def login(username, password):
 
 @app.route('/api/register/<username>&<password>')
 def register(username, password):
-    student_records.insert({'username': username, 'password': password})
+    student_records.insert({'username': username, 'password': password,'fname':fname,'lname':lname})
     return (1)
 
 if __name__ == "__main__":
