@@ -12,9 +12,9 @@ export default function CourseList( { usertype, username } ) {
   const cancelButtonRef = useRef()
 
   useEffect(() => {
-    if (usertype === "student") {
-      if (username === "none") {
-        fetch('/api/getavailablecourses', {
+    if (usertype === "student1" || usertype === "student2") {
+      if (usertype === "student2") {
+        fetch('/api/getavailablecourses/' + username, {
           method: 'GET'
         })
             .then(response => response.json())
