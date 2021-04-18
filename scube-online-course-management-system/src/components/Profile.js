@@ -1,76 +1,82 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { PaperClipIcon } from '@heroicons/react/solid'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 
 export default function Profile( { username } ) {
+  const [studentData, setStudentData] = useState(
+    {
+      firstname: "None",
+      lastname: "None",
+      username: "None",
+      photourl: "None",
+    });
+
+  const [courses, setCourses] = useState([])
+
   useEffect(() => {
     fetch('/api/studentprofile/shashanka127', {
       method: 'GET'
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            setStudentData(data[0]);
         })
-  });
+
+    fetch('/api/getavailablecourses', {
+      method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            setCourses([]);
+            let courseCount = data.length;
+            let coursesList = [];
+            for (let i = 0; i < courseCount; i++) {
+              coursesList.push(data[i].name);
+            };
+            setCourses(coursesList);
+        })
+  }, []);
 
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-      <div className="px-4 py-5 sm:px-6">
-        <h3 className="text-lg leading-6 font-medium text-gray-900">Applicant Information</h3>
-        <p className="mt-1 max-w-2xl text-sm text-gray-500">Personal details and application.</p>
+      <div className="px-2 py-2 sm:px-2">
+        <table className="bg-indigo-100 text-left w-full rounded-md">
+          <tbody>
+            <tr>
+              <td className='p-3'>
+                <img
+                  className="h-48 w-48 rounded-full m-0"
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt=""
+                />
+              </td>
+              <td>
+                <h1 className="text-3xl font-medium text-indigo-900">Student Profile</h1>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div className="border-t border-gray-200">
+      <div className="border-t border-indigo-300">
         <dl>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Full name</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Margot Foster</dd>
+          <div className="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt className="text-sm font-medium text-indigo-900">Full Name</dt>
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{studentData.firstname + " " + studentData.lastname}</dd>
           </div>
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Application for</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Backend Developer</dd>
+            <dt className="text-sm font-medium text-indigo-900">Username</dt>
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{studentData.username}</dd>
           </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Email address</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">margotfoster@example.com</dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Salary expectation</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">$120,000</dd>
-          </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">About</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur
-              qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud
-              pariatur mollit ad adipisicing reprehenderit deserunt qui eu.
-            </dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Attachments</dt>
+          <div className="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt className="text-sm font-medium text-indigo-900">Enrolled Courses</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
               <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                {courses.map((course) => (
+                  <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
                   <div className="w-0 flex-1 flex items-center">
-                    <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                    <span className="ml-2 flex-1 w-0 truncate">resume_back_end_developer.pdf</span>
+                    <span className="ml-2 flex-1 w-0 truncate">{course}</span>
                   </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                      Download
-                    </a>
-                  </div>
-                </li>
-                <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                  <div className="w-0 flex-1 flex items-center">
-                    <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                    <span className="ml-2 flex-1 w-0 truncate">coverletter_back_end_developer.pdf</span>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                      Download
-                    </a>
-                  </div>
-                </li>
+                  </li>
+                ))}
               </ul>
             </dd>
           </div>
