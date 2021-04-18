@@ -16,8 +16,8 @@ export default function Login() {
         .then(data => {
             console.log(data['success']);
             if (data['success']) {
-              localStorage.setItem("Username", username);
-              history.push('/home');
+              localStorage.setItem("username", username);
+              history.push('/studenthome');
             }
             window.location.reload();
         })
