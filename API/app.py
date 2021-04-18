@@ -63,14 +63,14 @@ def studentprofile(username):
 
 @app.route('/api/enrollcourse/<username>&<name>')
 def enrollcourse(username,name):
-    if courses.find({}):
-        for course in courses.find({"name":name}):
-            courses.insert({"students":username})
-    return ({"success": True})
+   courses.update({"name":name"},{ $push: {"students":{username}}})
+   return ({"success": True})
 
 @app.route('/api/unenrollcourse/<username>&<name>')
 def unenrollcourse(username,name):
-    courses.remove({"name":name,"students": username})
+    if courses.find({}):
+        for course in courses.find({"name":name}):
+            courses.remove({"students":username})
     return ({"success": True})
 
 @app.route('/api/createcourse/<professor>&<name>&<details>')
