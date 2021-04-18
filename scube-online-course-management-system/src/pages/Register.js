@@ -20,9 +20,9 @@ export default function Register() {
             console.log(data['success']);
             if (data['success']) {
               localStorage.setItem("username", username);
-              history.push('/home');
+              history.push('/studenthome');
             }
-            // window.location.reload();
+            window.location.reload();
         })
   }
 

@@ -13,7 +13,7 @@ export default function Profile( { username } ) {
   const [courses, setCourses] = useState([])
 
   useEffect(() => {
-    fetch('/api/studentprofile/shashanka127', {
+    fetch('/api/studentprofile/' + username, {
       method: 'GET'
     })
         .then(response => response.json())
