@@ -31,9 +31,9 @@ def login(username, password):
     return ({"success": success})
 
 @app.route('/api/register/<firstname>&<lastname>&<username>&<password>')
-def register(username, password):
+def register(firstname, lastname, username, password):
     student_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password})
-    return (1)
+    return ({"success": True})
 
 if __name__ == "__main__":
     app.run(debug=True)
