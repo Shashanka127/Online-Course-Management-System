@@ -63,7 +63,7 @@ def studentprofile(username):
 
 @app.route('/api/enrollcourse/<username>&<name>')
 def enrollcourse(username,name):
-   courses.update({"name":name"},{ $push: {"students":{username}}})
+   courses.update({"name":name},{ $push: {"students":username}})
    return ({"success": True})
 
 @app.route('/api/unenrollcourse/<username>&<name>')
