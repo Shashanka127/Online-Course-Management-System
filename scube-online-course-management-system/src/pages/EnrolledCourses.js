@@ -1,15 +1,24 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Link } from 'react-router-dom'
-import Profile from './Profile'
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import CourseList from '../components/CourseList';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Homepage() {
+export default function EnrolledCourses() {
+  useEffect(() => {
+    fetch('/api/getenrolledcourses/' + localStorage.getItem("username"), {
+      method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+  });
+
   return (
     <div>
       <Disclosure as="nav" className="bg-gray-800">
@@ -27,10 +36,10 @@ export default function Homepage() {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
-                    <Link to='/home' className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                    <Link to='/home' className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                       Your Profile
                     </Link>
-                    <Link to='/enrolledCourses' className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                    <Link to='/enrolledCourses' className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
                       Enrolled Courses
                     </Link>
                     <Link to='/availableCourses' className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
@@ -104,15 +113,14 @@ export default function Homepage() {
 
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Enrolled Courses</h1>
         </div>
       </header>
       <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          {/* Replace with your content */}
           <div className="px-4 py-6 sm:px-0">
             <div className="border-4 border-dashed border-gray-200 rounded-lg p-3">
-              <Profile username={localStorage.getItem("username")} />
+              <CourseList username={localStorage.getItem("username")}/>
             </div>
           </div>
         </div>
