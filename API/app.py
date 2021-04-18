@@ -84,7 +84,7 @@ def enrollcourse(username, name):
 
 @app.route('/api/unenrollcourse/<username>&<name>')
 def unenrollcourse(username,name):
-    courses.update_one({"name":name},{'$pop':{"students":username}})
+    courses.update_one({"name":name},{'$pull':{"students":username}})
     return ({"success": True})
 
 @app.route('/api/createcourse/<professor>&<name>&<description>')
@@ -111,7 +111,7 @@ def professorprofile(username):
 
 @app.route('/api/deletecourse/<name>')
 def deletecourse(name):
-    courses.remove({"name":name})
+    courses.delete_one({"name":name})
     return ({"success": True})
 
 if __name__ == "__main__":
