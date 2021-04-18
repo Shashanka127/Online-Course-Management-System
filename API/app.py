@@ -62,12 +62,12 @@ def studentprofile(username):
 
 @app.route('/api/enrollcourse/<username>&<name>')
 def enrollcourse(username,name):
-    courses.update({"name":name,"students": username})
+    courses.insert({"name":name,"students": username})
     return ("1")
 
 @app.route('/api/unenrollcourse/<username>&<name>')
-def addname(username,name):
-    unenrollcourse.remove({"name":name,"students": username})
+def unenrollcourse(username,name):
+    courses.remove({"name":name,"students": username})
     return ("1")
 
 
