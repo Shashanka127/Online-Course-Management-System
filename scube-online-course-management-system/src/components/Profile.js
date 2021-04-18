@@ -21,18 +21,19 @@ export default function Profile( { username } ) {
             setStudentData(data[0]);
         })
 
-    fetch('/api/getavailablecourses', {
+    username = localStorage.getItem("username");
+    fetch('/api/getenrolledcourses/' + username, {
       method: 'GET'
     })
         .then(response => response.json())
         .then(data => {
-            setCourses([]);
-            let courseCount = data.length;
-            let coursesList = [];
-            for (let i = 0; i < courseCount; i++) {
-              coursesList.push(data[i].name);
-            };
-            setCourses(coursesList);
+          setCourses([]);
+          let courseCount = data.length;
+          let coursesList = [];
+          for (let i = 0; i < courseCount; i++) {
+            coursesList.push(data[i]);
+          };
+          setCourses(coursesList);
         })
   }, []);
 
