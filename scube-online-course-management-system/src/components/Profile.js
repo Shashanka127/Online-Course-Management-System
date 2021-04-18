@@ -58,7 +58,7 @@ export default function Profile({ usertype, username }) {
             setCourses(coursesList);
           })
     }
-  }, [username]);
+  }, [usertype, username]);
 
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">

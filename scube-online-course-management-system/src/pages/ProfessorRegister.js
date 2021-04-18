@@ -18,11 +18,11 @@ export default function ProfessorRegister() {
         .then(response => response.json())
         .then(data => {
             console.log(data['success']);
-            // if (data['success']) {
-            //   localStorage.setItem("username", username);
-            //   history.push('/studenthome');
-            // }
-            // window.location.reload();
+            if (data['success']) {
+              localStorage.setItem("username", username);
+              history.push('/professorhome');
+            }
+            window.location.reload();
         })
   }
 
