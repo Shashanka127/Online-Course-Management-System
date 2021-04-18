@@ -63,7 +63,9 @@ def studentprofile(username):
 
 @app.route('/api/enrollcourse/<username>&<name>')
 def enrollcourse(username,name):
-    courses.insert_one({"name":name,"students": username})
+    if courses.find({}):
+        for course in courses.find({"name":name}):
+            courses.insert({"students":username})
     return ({"success": True})
 
 @app.route('/api/unenrollcourse/<username>&<name>')
