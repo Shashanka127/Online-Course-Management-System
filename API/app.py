@@ -56,7 +56,7 @@ def getavailablecourses(username):
     if courses.find({}):
         for course in courses.find({}).sort("name"):
             courses_json.append({"name": course['name'], "description":course['description'],"students":course['students'],"professor":course['professor']})
-	for course in courses.find({"students":username}).sort("name"):
+    for course in courses.find({"students":username}).sort("name"):
             enrolled_json.append({"name": course['name'], "description":course['description'],"students":course['students'],"professor":course['professor']})
     unenrolled_json=[course for course in courses_json if course not in enrolled_json]
     return json.dumps(unenrolled_json)
