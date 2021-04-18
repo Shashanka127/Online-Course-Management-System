@@ -36,10 +36,18 @@ def register(firstname,lastname,photourl,username, password):
     student_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password,'photourl':photourl})
     return ("1")
 
-@app.route('/api/getcourses/')
-def getcourses():
+@app.route('/api/getavailablecourses/')
+def getavailablecourses():
     courses_json = []
     if courses.find({}):
+        for course in courses.find({}).sort("name"):
+            courses_json.append({"name": course['name'], "description":course['description'],"student":course['students'],"professor":course['professor']})
+    return json.dumps(courses_json)
+
+@app.route('/api/getenrolledcourses/<username>')
+def getenrolledcourses(username):
+    courses_json = []
+    if courses.find({students:username}):
         for course in courses.find({}).sort("name"):
             courses_json.append({"name": course['name'], "description":course['description'],"student":course['students'],"professor":course['professor']})
     return json.dumps(courses_json)
