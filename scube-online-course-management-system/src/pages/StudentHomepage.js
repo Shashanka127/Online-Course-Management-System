@@ -1,6 +1,6 @@
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import Profile from '../components/Profile'
 
@@ -11,6 +11,10 @@ export default function StudentHomepage() {
     localStorage.clear();
     history.push('/');
     window.location.reload();
+  }
+
+  if (localStorage.getItem("username") == null) {
+    return (<Redirect to='/login' />)
   }
 
   return (
