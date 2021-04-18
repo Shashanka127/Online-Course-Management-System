@@ -13,6 +13,7 @@ names_col = db.get_collection('names_col')
 student_records = db.get_collection('student_records')
 courses=db.get_collection('courses')
 
+
 @app.route('/addname/<name>/')
 def addname(name):
     names_col.insert_one({"name": name.lower()})
@@ -34,14 +35,14 @@ def login(username, password):
 @app.route('/api/register/<photourl>&<firstname>&<lastname>&<username>&<password>')
 def register(firstname,lastname,photourl,username, password):
     student_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password,'photourl':photourl})
-    return ("1")
+    return ({"success": True})
 
 @app.route('/api/getavailablecourses/')
 def getavailablecourses():
     courses_json = []
     if courses.find({}):
         for course in courses.find({}).sort("name"):
-            courses_json.append({"name": course['name'], "description":course['description'],"student":course['students'],"professor":course['professor']})
+            courses_json.append({"name": course['name'], "description":course['description'],"students":course['students'],"professor":course['professor']})
     return json.dumps(courses_json)
 
 @app.route('/api/getenrolledcourses/<username>')
@@ -49,7 +50,7 @@ def getenrolledcourses(username):
     courses_json = []
     if courses.find({}):
         for course in courses.find({"students":username}).sort("name"):
-            courses_json.append({"name": course['name'], "description":course['description'],"student":course['students'],"professor":course['professor']})
+            courses_json.append({"name": course['name'], "description":course['description'],"students":course['students'],"professor":course['professor']})
     return json.dumps(courses_json)
 
 @app.route('/api/studentprofile/<username>')
@@ -63,12 +64,23 @@ def studentprofile(username):
 @app.route('/api/enrollcourse/<username>&<name>')
 def enrollcourse(username,name):
     courses.insert({"name":name,"students": username})
-    return ("1")
+    return ({"success": True})
 
 @app.route('/api/unenrollcourse/<username>&<name>')
 def unenrollcourse(username,name):
     courses.remove({"name":name,"students": username})
-    return ("1")
+    return ({"success": True})
+
+@app.route('/api/createcourse/<professor>&<name>&<details>')
+def createcourse(professor,name,details):
+    courses({"name":name,"professor": professor,"details":details})
+    return ({"success": True})
+
+@app.route('/api/deletecourse/<name>')
+def deletecourse(name):
+    courses.remove({"name":name})
+    return ({"success": True})
+
 
 
 
