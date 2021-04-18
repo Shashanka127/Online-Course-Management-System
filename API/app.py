@@ -11,7 +11,7 @@ mongoClient = MongoClient("mongodb+srv://admin:scube@scube.5egfi.mongodb.net/myF
 db = mongoClient.get_database('user_db')
 names_col = db.get_collection('names_col')
 student_records = db.get_collection('student_records')
-courses=db.get_collection('courses'),
+courses=db.get_collection('courses')
 
 @app.route('/addname/<name>/')
 def addname(name):
@@ -40,8 +40,8 @@ def register(firstname,lastname,photourl,username, password):
 def getcourses():
     courses_json = []
     if courses.find({}):
-        for courses in courses.find({}).sort("name"):
-            courses_json.append({"name": courses['name'], "description":courses['description'],"student":courses['student'],professor:courses['professor']})
+        for course in courses.find({}).sort("name"):
+            courses_json.append({"name": course['name'], "description":course['description'],"student":course['students'],"professor":course['professor']})
     return json.dumps(courses_json)
 
 if __name__ == "__main__":
