@@ -3,12 +3,12 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import EnrolledCourses from './components/EnrolledCourses';
-import AvailableCourses from './components/AvailableCourses';
-import Homepage from './components/Homepage';
-import Login from './components/Login';
-import Register from './components/Register';
-import Welcome from './components/Welcome';
+import EnrolledCourses from './pages/EnrolledCourses';
+import AvailableCourses from './pages/AvailableCourses';
+import Homepage from './pages/Homepage';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Welcome from './pages/Welcome';
 
 export default function App() {
   return (

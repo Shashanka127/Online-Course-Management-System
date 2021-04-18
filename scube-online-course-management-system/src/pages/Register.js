@@ -22,7 +22,7 @@ export default function Register() {
               localStorage.setItem("username", username);
               history.push('/home');
             }
-            window.location.reload();
+            // window.location.reload();
         })
   }
 
