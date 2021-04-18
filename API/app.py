@@ -51,10 +51,15 @@ def registerp(firstname,lastname,photourl,username, password):
 @app.route('/api/getavailablecourses/<username>')
 def getavailablecourses(username):
     courses_json = []
+    enrolled_json= []
+   
     if courses.find({}):
-        for course in courses.find({"students":{ '$not':username}}).sort("name"):
+        for course in courses.find({}).sort("name"):
             courses_json.append({"name": course['name'], "description":course['description'],"students":course['students'],"professor":course['professor']})
-    return json.dumps(courses_json)
+	for course in courses.find({"students":username}).sort("name"):
+            enrolled_json.append({"name": course['name'], "description":course['description'],"students":course['students'],"professor":course['professor']})
+    unenrolled_json=[course for course in courses_json if course not in enrolled_json]
+    return json.dumps(unenrolled_json)
 
 @app.route('/api/getenrolledcourses/<username>')
 def getenrolledcourses(username):
