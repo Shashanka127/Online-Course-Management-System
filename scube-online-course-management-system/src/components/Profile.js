@@ -19,9 +19,8 @@ export default function Profile( { username } ) {
         .then(response => response.json())
         .then(data => {
             setStudentData(data[0]);
-        })
+        });
 
-    username = localStorage.getItem("username");
     fetch('/api/getenrolledcourses/' + username, {
       method: 'GET'
     })
@@ -31,11 +30,11 @@ export default function Profile( { username } ) {
           let courseCount = data.length;
           let coursesList = [];
           for (let i = 0; i < courseCount; i++) {
-            coursesList.push(data[i]);
+            coursesList.push(data[i].name);
           };
           setCourses(coursesList);
         })
-  }, []);
+  }, [username]);
 
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
