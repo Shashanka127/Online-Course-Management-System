@@ -3,11 +3,26 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
 import { useHistory } from 'react-router';
 
-export default function CourseList( { usertype, username } ) {
+export default function CourseList( { courseListType, usertype, username } ) {
   let history = useHistory();
   const [courses, setCourses] = useState([]);
   const [enrollAlert, setEnrollAlert] = useState(false);
   const [chosenCourse, setChosenCourse] = useState("");
+  
+  let action = "";
+  let actionClass = "";
+
+  switch (courseListType) {
+    case "created": action = "Remove";
+                    actionClass = "px-5 py-2 text-red-600 hover:text-red-900 rounded-md bg-red-200 font-semibold";
+                    break;
+    case "enrolled": action = "Unenroll";
+                    actionClass = "px-5 py-2 text-red-600 hover:text-red-900 rounded-md bg-red-200 font-semibold";
+                    break;
+    default:        action = "Enroll";
+                    actionClass = "px-5 py-2 text-green-600 hover:text-green-900 rounded-md bg-green-200 font-semibold";
+                    break;
+  }
 
   const cancelButtonRef = useRef()
 
@@ -69,17 +84,46 @@ export default function CourseList( { usertype, username } ) {
   const enrollmentHandler = (courseName) => {
     setEnrollAlert(false);
     username = localStorage.getItem("username");
-    fetch('/api/enrollcourse/' + username + '&' + courseName, {
-      method: 'GET'
-    })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data['success']);
-          if (data['success']) {
-            history.push('/enrolledcourses');
-          }
-          window.location.reload();
-        })
+
+    if (courseListType === "available") {
+      fetch('/api/enrollcourse/' + username + '&' + courseName, {
+        method: 'GET'
+      })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data['success']);
+            if (data['success']) {
+              history.push('/enrolledcourses');
+            }
+            window.location.reload();
+          })
+    }
+    else if (courseListType === "created") {
+      fetch('/api/deletecourse/' + courseName, {
+        method: 'GET'
+      })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data['success']);
+            if (data['success']) {
+              history.push('/createdCourses');
+            }
+            window.location.reload();
+          })
+    }
+    else {
+      fetch('/api/unenrollcourse/' + username + '&' + courseName, {
+        method: 'GET'
+      })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data['success']);
+            if (data['success']) {
+              history.push('/availablecourses');
+            }
+            window.location.reload();
+          })
+    }
   }
 
   return (
@@ -142,8 +186,8 @@ export default function CourseList( { usertype, username } ) {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button id={course.name} onClick={e => enrollHandler(e.target.id)} className="px-5 py-2 text-green-600 hover:text-green-900 rounded-md bg-green-200 font-semibold">
-                        Enroll
+                      <button id={course.name} onClick={e => enrollHandler(e.target.id)} className={actionClass}>
+                        {action}
                       </button>
                     </td>
                   </tr>
