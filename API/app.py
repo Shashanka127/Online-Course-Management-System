@@ -47,7 +47,7 @@ def getavailablecourses():
 @app.route('/api/getenrolledcourses/<username>')
 def getenrolledcourses(username):
     courses_json = []
-    if courses.find({students:username}):
+    if courses.find({"students":username}):
         for course in courses.find({}).sort("name"):
             courses_json.append({"name": course['name'], "description":course['description'],"student":course['students'],"professor":course['professor']})
     return json.dumps(courses_json)
