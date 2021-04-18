@@ -37,7 +37,7 @@ export default function Welcome() {
                 <div className="mt-3 sm:mt-0 sm:ml-3">
                 <Link
                   to="/register"
-                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 md:py-4 md:text-lg md:px-10"
+                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-900 bg-indigo-100 hover:bg-indigo-300 md:py-4 md:text-lg md:px-10"
                 >
                   Register
                 </Link>

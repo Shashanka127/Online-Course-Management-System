@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
 import { useHistory } from 'react-router';
 
-export default function CourseList( { username } ) {
+export default function CourseList( { usertype, username } ) {
   let history = useHistory();
   const [courses, setCourses] = useState([]);
   const [enrollAlert, setEnrollAlert] = useState(false);
@@ -12,24 +12,41 @@ export default function CourseList( { username } ) {
   const cancelButtonRef = useRef()
 
   useEffect(() => {
-    if (username === "none") {
-      fetch('/api/getavailablecourses', {
-        method: 'GET'
-      })
-          .then(response => response.json())
-          .then(data => {
-            setCourses([]);
-            let courseCount = data.length;
-            let coursesList = [];
-            for (let i = 0; i < courseCount; i++) {
-              coursesList.push(data[i]);
-            };
-            setCourses(coursesList);
-          })
+    if (usertype === "student") {
+      if (username === "none") {
+        fetch('/api/getavailablecourses', {
+          method: 'GET'
+        })
+            .then(response => response.json())
+            .then(data => {
+              setCourses([]);
+              let courseCount = data.length;
+              let coursesList = [];
+              for (let i = 0; i < courseCount; i++) {
+                coursesList.push(data[i]);
+              };
+              setCourses(coursesList);
+            })
+      }
+      else {
+        fetch('/api/getenrolledcourses/' + username, {
+          method: 'GET'
+        })
+            .then(response => response.json())
+            .then(data => {
+              setCourses([]);
+              let courseCount = data.length;
+              let coursesList = [];
+              for (let i = 0; i < courseCount; i++) {
+                coursesList.push(data[i]);
+              };
+              setCourses(coursesList);
+            })
+      }
     }
     else {
-      fetch('/api/getenrolledcourses/' + username, {
-        method: 'GET'
+      fetch('/api/getcreatedcourses/' + username, {
+      method: 'GET'
       })
           .then(response => response.json())
           .then(data => {

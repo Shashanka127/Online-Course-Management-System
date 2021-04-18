@@ -1,16 +1,20 @@
 import { Disclosure } from '@headlessui/react'
-import { Link } from 'react-router-dom'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import CourseList from '../components/CourseList'
-import { useHistory } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import Profile from '../components/Profile'
 
-export default function AvailableCourses() {
+export default function ProfessorHomepage() {
   let history = useHistory();
 
   const signOutHandler = () => {
     localStorage.clear();
     history.push('/');
     window.location.reload();
+  }
+
+  if (localStorage.getItem("username") == null) {
+    return (<Redirect to='/login' />)
   }
 
   return (
@@ -30,14 +34,14 @@ export default function AvailableCourses() {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
-                    <Link to='/studenthome' className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                    <Link to='/professorhome' className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
                       Your Profile
                     </Link>
-                    <Link to='/enrolledCourses' className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                      Enrolled Courses
+                    <Link to='/createdCourses' className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                      Created Courses
                     </Link>
-                    <Link to='/availableCourses' className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
-                      Available Courses
+                    <Link to='/createCourse' className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                      Create a new Course
                     </Link>
                     </div>
                   </div>
@@ -72,14 +76,14 @@ export default function AvailableCourses() {
 
             <Disclosure.Panel className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <Link to='/studenthome' className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                <Link to='/professorhome' className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
                   Your Profile
                 </Link>
-                <Link to='/enrolledCourses' className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                  Enrolled Courses
+                <Link to='/createdCourses' className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  Created Courses
                 </Link>
-                <Link to='/availableCourses' className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                  Available Courses
+                <Link to='/createCourse' className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  Create a new Course
                 </Link>
               </div>
               <div className="pt-4 pb-3 border-t border-gray-700">
@@ -107,14 +111,15 @@ export default function AvailableCourses() {
 
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">Available Courses</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
         </div>
       </header>
       <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          {/* Replace with your content */}
           <div className="px-4 py-6 sm:px-0">
-            <div className="border-4 border-dashed border-gray-200 rounded-lg p-3" >
-              <CourseList usertype="student" username="none"/>
+            <div className="border-4 border-dashed border-gray-200 rounded-lg p-3">
+              <Profile username={localStorage.getItem("username")} />
             </div>
           </div>
         </div>

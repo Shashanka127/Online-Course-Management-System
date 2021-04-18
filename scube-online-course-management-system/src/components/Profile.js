@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
-
-export default function Profile( { username } ) {
-  const [studentData, setStudentData] = useState(
+export default function Profile({ usertype, username }) {
+  const [userData, setUserData] = useState(
     {
       firstname: "None",
       lastname: "None",
@@ -13,27 +12,52 @@ export default function Profile( { username } ) {
   const [courses, setCourses] = useState([])
 
   useEffect(() => {
-    fetch('/api/studentprofile/' + username, {
+    if (usertype === "student") {
+      fetch('/api/studentprofile/' + username, {
       method: 'GET'
-    })
-        .then(response => response.json())
-        .then(data => {
-            setStudentData(data[0]);
-        });
+      })
+          .then(response => response.json())
+          .then(data => {
+              setUserData(data[0]);
+          });
 
-    fetch('/api/getenrolledcourses/' + username, {
+      fetch('/api/getenrolledcourses/' + username, {
+        method: 'GET'
+      })
+          .then(response => response.json())
+          .then(data => {
+            setCourses([]);
+            let courseCount = data.length;
+            let coursesList = [];
+            for (let i = 0; i < courseCount; i++) {
+              coursesList.push(data[i].name);
+            };
+            setCourses(coursesList);
+          })
+    }
+    else {
+      fetch('/api/professorprofile/' + username, {
       method: 'GET'
-    })
-        .then(response => response.json())
-        .then(data => {
-          setCourses([]);
-          let courseCount = data.length;
-          let coursesList = [];
-          for (let i = 0; i < courseCount; i++) {
-            coursesList.push(data[i].name);
-          };
-          setCourses(coursesList);
-        })
+      })
+          .then(response => response.json())
+          .then(data => {
+              setUserData(data[0]);
+          });
+
+      fetch('/api/getcreatedcourses/' + username, {
+        method: 'GET'
+      })
+          .then(response => response.json())
+          .then(data => {
+            setCourses([]);
+            let courseCount = data.length;
+            let coursesList = [];
+            for (let i = 0; i < courseCount; i++) {
+              coursesList.push(data[i].name);
+            };
+            setCourses(coursesList);
+          })
+    }
   }, [username]);
 
   return (
@@ -60,11 +84,11 @@ export default function Profile( { username } ) {
         <dl>
           <div className="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-indigo-900">Full Name</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{studentData.firstname + " " + studentData.lastname}</dd>
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{userData.firstname + " " + userData.lastname}</dd>
           </div>
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-indigo-900">Username</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{studentData.username}</dd>
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{userData.username}</dd>
           </div>
           <div className="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-indigo-900">Enrolled Courses</dt>
