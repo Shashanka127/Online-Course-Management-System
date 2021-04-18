@@ -11,8 +11,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Homepage({state}) {
-  console.log(state)
+export default function Homepage() {
   return (
     <div>
       <Disclosure as="nav" className="bg-gray-800">
@@ -171,7 +170,7 @@ export default function Homepage({state}) {
 
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Your Profile</h1>
         </div>
       </header>
       <main>
