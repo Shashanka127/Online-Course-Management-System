@@ -52,5 +52,25 @@ def getenrolledcourses(username):
             courses_json.append({"name": course['name'], "description":course['description'],"student":course['students'],"professor":course['professor']})
     return json.dumps(courses_json)
 
+@app.route('/api/studentprofile/<username>')
+def studentprofile(username):
+    student_json = []
+    if student_records.find({}):
+        for student in student_records.find({"username":username}):
+            student_json.append({"firstname": student['firstname'], "lastname": student['lastname'], "username": student['username'], "password": student['password'],"photourl":student['photourl']})
+    return json.dumps(student_json)
+
+@app.route('/api/enrollcourse/<username>&<name>')
+def enrollcourse(username,name):
+    courses.update({"name":name,"students": username})
+    return ("1")
+
+@app.route('/api/unenrollcourse/<username>&<name>')
+def addname(username,name):
+    unenrollcourse.remove({"name":name,"students": username})
+    return ("1")
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
