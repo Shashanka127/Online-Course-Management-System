@@ -71,7 +71,7 @@ export default function Profile( { username } ) {
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
               <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
                 {courses.map((course) => (
-                  <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                  <li key={course} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
                   <div className="w-0 flex-1 flex items-center">
                     <span className="ml-2 flex-1 w-0 truncate">{course}</span>
                   </div>
