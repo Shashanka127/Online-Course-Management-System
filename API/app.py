@@ -30,10 +30,10 @@ def login(username, password):
     success = student_records.count_documents({'username': username, 'password': password}) == 1
     return ({"success": success})
 
-@app.route('/api/register/<firstname>&<lastname>&<username>&<password>')
-def register(username, password):
-    student_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password})
-    return (1)
+@app.route('/api/register/<photourl>&<firstname>&<lastname>&<username>&<password>')
+def register(firstname,lastname,photourl,username, password):
+    student_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password,'photourl':photourl})
+    return ("1")
 
 if __name__ == "__main__":
     app.run(debug=True)
