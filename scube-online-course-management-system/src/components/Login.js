@@ -1,5 +1,4 @@
 import { React, useState} from 'react';
-import { login } from '../api';
 import { Redirect, useHistory } from 'react-router-dom';
 
 export default function Login() {
@@ -10,7 +9,17 @@ export default function Login() {
 
   const loginHandler = e => {
     e.preventDefault();
-    login(username, password);
+    fetch('/login/' + username + '&' + password, {
+      method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data['success']);
+            if (data['success']) {
+              history.push('/home');
+            }
+            window.location.reload();
+        })
   }
 
   return (

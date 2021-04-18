@@ -5,7 +5,7 @@ export default function Welcome() {
   return (
     <div>
       <div className="mx-auto">
-        <div className="relative z-10 pt-10 pb-44 bg-white lg:max-w-3xl">
+        <div className="relative z-10 pt-10 pb-44 bg-white lg:max-w-2xl h-full">
           <svg
             className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2"
             fill="currentColor"
@@ -16,7 +16,7 @@ export default function Welcome() {
             <polygon points="50,0 100,0 50,100 0,100" />
           </svg>
 
-          <main className="mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+          <main className="mx-auto max-w-5xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28 h-full">
             <div className="sm:text-center lg:text-left">
               <h1 className="text-5xl tracking-tight font-extrabold text-indigo-900 sm:text-5xl md:text-6xl">
                 <span className="block xl:inline">SCUBE<br/></span>{' '}
@@ -48,10 +48,10 @@ export default function Welcome() {
         </div>
       </div>
       
-      <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+      <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-3/4">
         <img
         className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-        src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
+        src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxhbGx8fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080&utm_source=unsplash_source&utm_medium=referral&utm_campaign=api-credit"
         alt="something's wrong"
         />
       </div>
