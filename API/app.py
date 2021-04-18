@@ -34,7 +34,7 @@ def login(username, password):
     success = student_records.count_documents({'username': username, 'password': password}) == 1
     return ({"success": success})
 
-@app.route('/api/register/<photourl>&<firstname>&<lastname>&<username>&<password>')
+@app.route('/api/studentregister/<photourl>&<firstname>&<lastname>&<username>&<password>')
 def register(firstname,lastname,photourl,username, password):
     student_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password,'photourl':photourl})
     return ({"success": True})
@@ -44,7 +44,7 @@ def loginp(username, password):
     success = professor_records.count_documents({'username': username, 'password': password}) == 1
     return ({"success": success})
 
-@app.route('/api/registerp/<photourl>&<firstname>&<lastname>&<username>&<password>')
+@app.route('/api/professorregister/<photourl>&<firstname>&<lastname>&<username>&<password>')
 def registerp(firstname,lastname,photourl,username, password):
     professor_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password,'photourl':photourl})
     return ({"success": True})
@@ -87,6 +87,14 @@ def unenrollcourse(username,name):
 def createcourse(professor,name,details):
     courses.insert_one({"name":name,"professor": professor,"details":details})
     return ({"success": True})
+
+@app.route('/api/getcreatedcourses/<name>')
+def getcreatedcourses(name):
+    courses_json = []
+    if courses.find({}):
+        for course in courses.find({"professor":name}).sort("name"):
+            courses_json.append({"name": course['name'], "description":course['description'],"students":course['students'],"professor":course['professor']})
+    return json.dumps(courses_json)
 
 @app.route('/api/deletecourse/<name>')
 def deletecourse(name):
