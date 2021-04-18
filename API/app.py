@@ -48,11 +48,11 @@ def registerp(firstname,lastname,photourl,username, password):
     professor_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password,'photourl':photourl})
     return ({"success": True})
 
-@app.route('/api/getavailablecourses/')
-def getavailablecourses():
+@app.route('/api/getavailablecourses/<username>')
+def getavailablecourses(username):
     courses_json = []
     if courses.find({}):
-        for course in courses.find({}).sort("name"):
+        for course in courses.find({"students":{ '$not':username}}).sort("name"):
             courses_json.append({"name": course['name'], "description":course['description'],"students":course['students'],"professor":course['professor']})
     return json.dumps(courses_json)
 
