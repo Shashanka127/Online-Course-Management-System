@@ -1,23 +1,17 @@
-import { Fragment, useEffect } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure } from '@headlessui/react'
 import { Link } from 'react-router-dom'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import CourseList from '../components/CourseList';
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+import { useHistory } from 'react-router-dom';
 
 export default function EnrolledCourses() {
-  useEffect(() => {
-    fetch('/api/getenrolledcourses/' + localStorage.getItem("username"), {
-      method: 'GET'
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-  });
+  let history = useHistory();
+
+  const signOutHandler = () => {
+    localStorage.clear();
+    history.push('/');
+    window.location.reload();
+  }
 
   return (
     <div>
@@ -36,7 +30,7 @@ export default function EnrolledCourses() {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
-                    <Link to='/home' className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                    <Link to='/studenthome' className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                       Your Profile
                     </Link>
                     <Link to='/enrolledCourses' className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
@@ -50,7 +44,7 @@ export default function EnrolledCourses() {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
-                    <button className="bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
+                    <button onClick={() => signOutHandler()} className="bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
                       Sign Out
                     </button>
                     <div className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -78,7 +72,7 @@ export default function EnrolledCourses() {
 
             <Disclosure.Panel className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <Link to='/home' className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                <Link to='/studenthome' className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
                   Your Profile
                 </Link>
                 <Link to='/enrolledCourses' className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
@@ -101,7 +95,7 @@ export default function EnrolledCourses() {
                     <div className="text-base font-medium leading-none text-white">Tom Cook</div>
                     <div className="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
                   </div>
-                  <button className="ml-auto bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
+                  <button onClick={() => signOutHandler()} className="ml-auto bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
                     Sign Out
                   </button>
                 </div>
