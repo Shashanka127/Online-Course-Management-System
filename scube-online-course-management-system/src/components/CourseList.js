@@ -59,7 +59,7 @@ export default function CourseList( { usertype, username } ) {
             setCourses(coursesList);
           })
     }
-  }, [username]);
+  }, [usertype, username]);
 
   const enrollHandler = courseName => {
     setChosenCourse(courseName);
