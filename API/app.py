@@ -11,6 +11,7 @@ mongoClient = MongoClient("mongodb+srv://admin:scube@scube.5egfi.mongodb.net/myF
 db = mongoClient.get_database('user_db')
 names_col = db.get_collection('names_col')
 student_records = db.get_collection('student_records')
+professor_records = db.get_collection('professor_records')
 courses=db.get_collection('courses')
 
 
@@ -27,7 +28,7 @@ def getnames():
             names_json.append({"name": name['name'], "id": str(name['_id'])})
     return json.dumps(names_json)
 
-@app.route('/login/<username>&<password>/')
+@app.route('/api/studentlogin/<username>&<password>/')
 def login(username, password):
     success = student_records.count_documents({'username': username, 'password': password}) == 1
     return ({"success": success})
@@ -35,6 +36,16 @@ def login(username, password):
 @app.route('/api/register/<photourl>&<firstname>&<lastname>&<username>&<password>')
 def register(firstname,lastname,photourl,username, password):
     student_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password,'photourl':photourl})
+    return ({"success": True})
+
+@app.route('/api/professorlogin/<username>&<password>/')
+def loginp(username, password):
+    success = professor_records.count_documents({'username': username, 'password': password}) == 1
+    return ({"success": success})
+
+@app.route('/api/registerp/<photourl>&<firstname>&<lastname>&<username>&<password>')
+def registerp(firstname,lastname,photourl,username, password):
+    professor_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password,'photourl':photourl})
     return ({"success": True})
 
 @app.route('/api/getavailablecourses/')
@@ -62,15 +73,13 @@ def studentprofile(username):
     return json.dumps(student_json)
 
 @app.route('/api/enrollcourse/<username>&<name>')
-def enrollcourse(username,name):
-   courses.update({"name":name},{ $push: {"students":username}})
+def enrollcourse(username, name):
+   courses.update_one({"name":name},{'$push':{"students":username}})
    return ({"success": True})
 
 @app.route('/api/unenrollcourse/<username>&<name>')
 def unenrollcourse(username,name):
-    if courses.find({}):
-        for course in courses.find({"name":name}):
-            courses.remove({"students":username})
+    courses.update_one({"name":name},{'$pop':{"students":username}})
     return ({"success": True})
 
 @app.route('/api/createcourse/<professor>&<name>&<details>')
@@ -82,9 +91,6 @@ def createcourse(professor,name,details):
 def deletecourse(name):
     courses.remove({"name":name})
     return ({"success": True})
-
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
