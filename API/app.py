@@ -82,9 +82,9 @@ def unenrollcourse(username,name):
     courses.update_one({"name":name},{'$pop':{"students":username}})
     return ({"success": True})
 
-@app.route('/api/createcourse/<professor>&<name>&<details>')
-def createcourse(professor,name,details):
-    courses.insert_one({"name":name,"professor": professor,"details":details})
+@app.route('/api/createcourse/<professor>&<name>&<description>')
+def createcourse(professor,name,description):
+    courses.insert_one({"name":name,"description":description,"students":[],"professor": professor})
     return ({"success": True})
 
 @app.route('/api/getcreatedcourses/<name>')
