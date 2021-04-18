@@ -62,8 +62,8 @@ def studentprofile(username):
     return json.dumps(student_json)
 
 @app.route('/api/enrollcourse/<username>&<name>')
-def enrollcourse(username,name):
-   courses.update({"name":name},{ $push: {"students":username}})
+def enrollcourse(username, name):
+   courses.update_one({"name":name},{'$push':{"students":username}})
    return ({"success": True})
 
 @app.route('/api/unenrollcourse/<username>&<name>')
