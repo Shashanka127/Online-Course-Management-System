@@ -63,7 +63,7 @@ def studentprofile(username):
 
 @app.route('/api/enrollcourse/<username>&<name>')
 def enrollcourse(username,name):
-    courses.insert({"name":name,"students": username})
+    courses.insert_one({"name":name,"students": username})
     return ({"success": True})
 
 @app.route('/api/unenrollcourse/<username>&<name>')
@@ -73,7 +73,7 @@ def unenrollcourse(username,name):
 
 @app.route('/api/createcourse/<professor>&<name>&<details>')
 def createcourse(professor,name,details):
-    courses({"name":name,"professor": professor,"details":details})
+    courses.insert_one({"name":name,"professor": professor,"details":details})
     return ({"success": True})
 
 @app.route('/api/deletecourse/<name>')
