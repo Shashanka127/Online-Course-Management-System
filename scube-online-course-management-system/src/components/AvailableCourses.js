@@ -1,8 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Link } from 'react-router-dom'
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
 const navigation = ['Your Profile', 'Enrolled Courses', 'Available Courses']
 const profile = ['Your Profile', 'Settings', 'Sign out']
@@ -11,8 +11,17 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Homepage({state}) {
-  console.log(state)
+export default function AvailableCourses() {
+  useEffect(() => {
+    fetch('/api/getcourses', {
+      method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+  });
+
   return (
     <div>
       <Disclosure as="nav" className="bg-gray-800">
@@ -152,7 +161,7 @@ export default function Homepage({state}) {
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
-                {/* <div className="mt-3 px-2 space-y-1">
+                <div className="mt-3 px-2 space-y-1">
                   {profile.map((item) => (
                     <a
                       key={item}
@@ -162,7 +171,7 @@ export default function Homepage({state}) {
                       {item}
                     </a>
                   ))}
-                </div> */}
+                </div>
               </div>
             </Disclosure.Panel>
           </>

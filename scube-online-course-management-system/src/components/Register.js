@@ -8,10 +8,11 @@ export default function Register() {
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [profile, setProfile] = useState("");
 
   const registrationHandler = e => {
     e.preventDefault();
-    fetch('/api/register/' + firstName + '&' + lastName + '&' + username + '&' + password, {
+    fetch('/api/register/' + profile + '&' + firstName + '&' + lastName + '&' + username + '&' + password, {
       method: 'GET'
     })
         .then(response => response.json())
@@ -65,6 +66,20 @@ export default function Register() {
                 id="last_name"
                 autoComplete="family-name"
                 onChange={e => setLastName(e.target.value)}
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              />
+              </div>
+    
+              <div className="col-span-6 sm:col-span-3">
+              <label htmlFor="profile_pic_url" className="block text-sm font-medium text-gray-700">
+                Profile Photo URL
+              </label>
+              <input
+                type="text"
+                name="profile_pic_url"
+                id="profile_pic_url"
+                autoComplete="family-name"
+                onChange={e => setProfile(e.target.value)}
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
               </div>
