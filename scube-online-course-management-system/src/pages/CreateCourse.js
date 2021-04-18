@@ -1,87 +1,124 @@
-import { React, useState } from 'react';
+import { Disclosure } from '@headlessui/react'
+import { Link } from 'react-router-dom'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { useHistory } from 'react-router-dom';
+import CreateCourseForm from '../components/CreateCourseForm';
 
 export default function CreateCourse() {
   let history = useHistory();
 
-  const [courseName, setCourseName] = useState("");
-  const [courseDescription, setCourseDescription] = useState("");
-  let username = localStorage.getItem("username");
-
-  const registrationHandler = e => {
-    e.preventDefault();
-    fetch('/api/createcourse/' + username + '&' + courseName + '&' + courseDescription, {
-      method: 'GET'
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data['success']);
-            if (data['success']) {
-              localStorage.setItem("username", username);
-              history.push('/professorhome');
-            }
-            window.location.reload();
-        })
+  const signOutHandler = () => {
+    localStorage.clear();
+    history.push('/');
+    window.location.reload();
   }
 
   return (
-    <div className="m-10 justify-items-center">
-      <h1 className="text-3xl tracking-tight font-extrabold text-indigo-900 sm:text-3xl md:text-3xl text-center">Create a Course</h1>
-      
-      <div className="hidden sm:block" aria-hidden="true">
-        <div className="py-5">
-        <div className="border-t border-gray-500" />
+    <div>
+      <Disclosure as="nav" className="bg-gray-800">
+        {({ open }) => (
+          <>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-16">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <img
+                      className="h-8 w-8"
+                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                      alt="Workflow"
+                    />
+                  </div>
+                  <div className="hidden md:block">
+                    <div className="ml-10 flex items-baseline space-x-4">
+                    <Link to='/professorhome' className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                      Your Profile
+                    </Link>
+                    <Link to='/createdCourses' className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                      Created Courses
+                    </Link>
+                    <Link to='/createCourse' className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                      Create a new Course
+                    </Link>
+                    </div>
+                  </div>
+                </div>
+                <div className="hidden md:block">
+                  <div className="ml-4 flex items-center md:ml-6">
+                    <button onClick={() => signOutHandler()} className="bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
+                      Sign Out
+                    </button>
+                    <div className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                      <img
+                        className="h-8 w-8 rounded-full"
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="-mr-2 flex md:hidden">
+                  {/* Mobile menu button */}
+                  <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    <span className="sr-only">Open main menu</span>
+                    {open ? (
+                      <XIcon className="block h-6 w-6" aria-hidden="true" />
+                    ) : (
+                      <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                    )}
+                  </Disclosure.Button>
+                </div>
+              </div>
+            </div>
+
+            <Disclosure.Panel className="md:hidden">
+              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <Link to='/studenthome' className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  Your Profile
+                </Link>
+                <Link to='/createdCourses' className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  Created Courses
+                </Link>
+                <Link to='/createCourse' className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                  Create a new Course
+                </Link>
+              </div>
+              <div className="pt-4 pb-3 border-t border-gray-700">
+                <div className="flex items-center px-5">
+                  <div className="flex-shrink-0">
+                    <img
+                      className="h-10 w-10 rounded-full"
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div className="ml-3">
+                    <div className="text-base font-medium leading-none text-white">Tom Cook</div>
+                    <div className="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
+                  </div>
+                  <button onClick={() => signOutHandler()} className="ml-auto bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
+                    Sign Out
+                  </button>
+                </div>
+              </div>
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+
+      <header className="bg-white shadow">
+        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold text-gray-900">Create a new Course</h1>
         </div>
-      </div>
-    
-      <div className="mt-10 mx-10 sm:mt-0 items-center">
-        <div className="mt-5 md:mt-0 md:col-span-2">
-          <form onSubmit={registrationHandler}>
-          <div className="shadow overflow-hidden sm:rounded-md">
-            <div className="px-4 py-5 bg-white sm:p-6">
-            <div className="grid grid-cols-6 gap-6">    
-              <div className="col-span-6 sm:col-span-3">
-              <label htmlFor="profile_pic_url" className="block text-sm font-medium text-gray-700">
-                Course Name
-              </label>
-              <input
-                type="text"
-                name="profile_pic_url"
-                id="profile_pic_url"
-                autoComplete="family-name"
-                onChange={e => setCourseName(e.target.value)}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-              />
-              </div>
-    
-              <div className="col-span-6 sm:col-span-4">
-              <label htmlFor="email_address" className="block text-sm font-medium text-gray-700">
-                Course Description
-              </label>
-              <input
-                type="text"
-                name="email_address"
-                id="email_address"
-                autoComplete="email"
-                onChange={e => setCourseDescription(e.target.value)}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-              />
-              </div>
-            </div>
-            </div>
-            <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <button
-              type="submit"
-              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Create Account
-            </button>
+      </header>
+      <main>
+        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div className="px-4 py-6 sm:px-0">
+            <div className="border-4 border-dashed border-gray-200 rounded-lg p-3">
+                <CreateCourseForm />
             </div>
           </div>
-          </form>
         </div>
-      </div>
+      </main>
     </div>
   )
-  }
-  
+}

@@ -10,6 +10,8 @@ export default function Profile({ usertype, username }) {
     });
 
   const [courses, setCourses] = useState([])
+  const user = usertype === 'student' ? "Student" : "Professor";
+  const courseListName = usertype === 'student' ? "Enrolled" : "Created";
 
   useEffect(() => {
     if (usertype === "student") {
@@ -74,7 +76,7 @@ export default function Profile({ usertype, username }) {
                 />
               </td>
               <td>
-                <h1 className="text-3xl font-medium text-indigo-900">Student Profile</h1>
+                <h1 className="text-3xl font-medium text-indigo-900">{user} Profile</h1>
               </td>
             </tr>
           </tbody>
@@ -91,7 +93,7 @@ export default function Profile({ usertype, username }) {
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{userData.username}</dd>
           </div>
           <div className="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-indigo-900">Enrolled Courses</dt>
+            <dt className="text-sm font-medium text-indigo-900">{courseListName} Courses</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
               <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
                 {courses.map((course) => (
