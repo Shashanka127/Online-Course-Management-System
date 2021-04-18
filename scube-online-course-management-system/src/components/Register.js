@@ -1,4 +1,30 @@
+import { React, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 export default function Register() {
+  let history = useHistory();
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const registrationHandler = e => {
+    e.preventDefault();
+    fetch('/api/register/' + firstName + '&' + lastName + '&' + username + '&' + password, {
+      method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data['success']);
+            if (data['success']) {
+              localStorage.setItem("Username", username);
+              history.push('/home');
+            }
+            window.location.reload();
+        })
+  }
+
   return (
     <div className="m-10 justify-items-center">
       <h1 className="text-3xl tracking-tight font-extrabold text-indigo-900 sm:text-3xl md:text-3xl text-center">Create an account</h1>
@@ -11,7 +37,7 @@ export default function Register() {
     
       <div className="mt-10 mx-10 sm:mt-0 items-center">
         <div className="mt-5 md:mt-0 md:col-span-2">
-          <form action="#" method="POST">
+          <form onSubmit={registrationHandler}>
           <div className="shadow overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6">
             <div className="grid grid-cols-6 gap-6">
@@ -24,6 +50,7 @@ export default function Register() {
                 name="first_name"
                 id="first_name"
                 autoComplete="given-name"
+                onChange={e => setFirstName(e.target.value)}
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
               </div>
@@ -37,85 +64,48 @@ export default function Register() {
                 name="last_name"
                 id="last_name"
                 autoComplete="family-name"
+                onChange={e => setLastName(e.target.value)}
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
               </div>
     
               <div className="col-span-6 sm:col-span-4">
               <label htmlFor="email_address" className="block text-sm font-medium text-gray-700">
-                Email address
+                Username
               </label>
               <input
                 type="text"
                 name="email_address"
                 id="email_address"
                 autoComplete="email"
+                onChange={e => setUsername(e.target.value)}
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
               </div>
     
-              <div className="col-span-6 sm:col-span-3">
-              <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                Country / Region
-              </label>
-              <select
-                id="country"
-                name="country"
-                autoComplete="country"
-                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              >
-                <option>United States</option>
-                <option>Canada</option>
-                <option>Mexico</option>
-              </select>
-              </div>
-    
               <div className="col-span-6">
-              <label htmlFor="street_address" className="block text-sm font-medium text-gray-700">
-                Street address
+              <label htmlFor="choose_password" className="block text-sm font-medium text-gray-700">
+                Choose Password
               </label>
               <input
-                type="text"
-                name="street_address"
-                id="street_address"
+                type="password"
+                name="choose_password"
+                id="choose_password"
                 autoComplete="street-address"
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
               </div>
     
-              <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-              <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                City
+              <div className="col-span-6">
+              <label htmlFor="confirm_password" className="block text-sm font-medium text-gray-700">
+                Confirm Password
               </label>
               <input
-                type="text"
-                name="city"
-                id="city"
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-              />
-              </div>
-    
-              <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-              <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-                State / Province
-              </label>
-              <input
-                type="text"
-                name="state"
-                id="state"
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-              />
-              </div>
-    
-              <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-              <label htmlFor="postal_code" className="block text-sm font-medium text-gray-700">
-                ZIP / Postal
-              </label>
-              <input
-                type="text"
-                name="postal_code"
-                id="postal_code"
-                autoComplete="postal-code"
+                type="password"
+                name="confirm_password"
+                id="confirm_password"
+                autoComplete="street-address"
+                onChange={e => setPassword(e.target.value)}
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
               </div>

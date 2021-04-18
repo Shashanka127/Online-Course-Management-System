@@ -1,9 +1,9 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useEffect } from 'react'
+import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
-const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
+const navigation = ['Your Profile', 'Enrolled Courses', 'Available Courses']
 const profile = ['Your Profile', 'Settings', 'Sign out']
 
 function classNames(...classes) {
@@ -160,7 +160,7 @@ export default function Homepage({state}) {
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
-                <div className="mt-3 px-2 space-y-1">
+                {/* <div className="mt-3 px-2 space-y-1">
                   {profile.map((item) => (
                     <a
                       key={item}
@@ -170,7 +170,7 @@ export default function Homepage({state}) {
                       {item}
                     </a>
                   ))}
-                </div>
+                </div> */}
               </div>
             </Disclosure.Panel>
           </>

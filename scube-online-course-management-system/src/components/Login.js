@@ -1,5 +1,5 @@
-import { React, useState} from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { React, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
   let history = useHistory();
@@ -16,6 +16,7 @@ export default function Login() {
         .then(data => {
             console.log(data['success']);
             if (data['success']) {
+              localStorage.setItem("Username", username);
               history.push('/home');
             }
             window.location.reload();
