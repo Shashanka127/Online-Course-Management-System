@@ -36,16 +36,13 @@ def register(firstname,lastname,photourl,username, password):
     student_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password,'photourl':photourl})
     return ("1")
 
-@app.route('/getcourse/)
+@app.route('/api/getcourses/')
 def getcourses():
     courses_json = []
     if courses.find({}):
         for courses in courses.find({}).sort("name"):
-            courses_json.append({"name": courses['name'], "description":courses['description'],"student":courses['student'],professor:courses['professor'])})
+            courses_json.append({"name": courses['name'], "description":courses['description'],"student":courses['student'],professor:courses['professor']})
     return json.dumps(courses_json)
-
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
