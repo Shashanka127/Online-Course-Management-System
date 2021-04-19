@@ -74,7 +74,7 @@ def professorprofile(username):
 
 @app.route('/api/create-course/<professor>&<name>&<description>')
 def createcourse(professor,name,description):
-    courses.insert_one({"name":name, "description": description, "students": [],"forum":[], "professor": professor})
+    courses.insert_one({"name":name, "description": description, "students": [],"forum":{}, "professor": professor})
     return ({"success": True})
 
 @app.route('/api/delete-course/<name>')
@@ -134,7 +134,7 @@ def getcreatedcourses(name):
 	
 @app.route('/api/created-post/<details>&<username>&<name>')
 def createpost(details,username,name):
-   courses.update_one({"name":name}, {'$push': {"forum":{"username":username,"details":details}}})
+   courses.update_one({"name":name}, {'$set': {"forum":{"username":username,"details":details}}})
    return ({"success": True})
 	
 @app.route('/api/view-post/<name>')
@@ -148,7 +148,7 @@ def viewallpost(name):
 	
 @app.route('/api/delete-post/<username>')
 def deletepost(username):
-   courses.update_one({"name":name}, {'$pull': {"forum":{"username":username}}})
+   courses.update_one({"name":name}, {'$unset': {"forum":{"username":username}}})
    return ({"success": True})
     
 if __name__ == "__main__":
