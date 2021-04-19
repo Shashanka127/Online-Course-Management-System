@@ -145,7 +145,7 @@ def viewallpost(name):
     forum_json = []
     if forum.find({}):
         for forums in forum.find({"name":name}):
-            forum_json.append({"name":name, "details": details, "username": username,"time":dateTimeObj})
+            forum_json.append({"name":forums['name'], "details": forums['details'], "username": forums['username'],"time":forums['dateTimeObj']})
     return json.dumps(forum_json)
 	
 @app.route('/api/delete-post/<username>&<name>')
