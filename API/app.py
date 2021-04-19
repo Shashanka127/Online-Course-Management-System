@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for
 from pymongo import MongoClient
 from flask_cors import CORS, cross_origin
+from datetime import datetime
 import json
 
 # Initializing App parameters
@@ -16,6 +17,8 @@ db = mongoClient.get_database('user_db')
 student_records = db.get_collection('student_records')
 professor_records = db.get_collection('professor_records')
 courses=db.get_collection('courses')
+forum=db.get_collection('forum')
+
 
 # -------------------------------------------------- #
 # ---------------- Defining the API ---------------- #
@@ -32,6 +35,8 @@ def login(username, password):
 # Create a new Student Account
 @app.route('/api/student-register/<firstname>&<lastname>&<photourl>&<username>&<password>')
 def register(firstname,lastname,photourl,username, password):
+    if(student_records.count_documents({'username': username}) == 1):
+	    return ({"success": False})
     student_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password, 'photourl': photourl})
     return ({"success": True})
 
@@ -41,9 +46,11 @@ def loginp(username, password):
     success = professor_records.count_documents({'username': username, 'password': password}) == 1
     return ({"success": success})
 
-# Create a new Student Account
+# Create a new Professor Account
 @app.route('/api/professor-register/<firstname>&<lastname>&<photourl>&<username>&<password>')
 def registerp(firstname,lastname,photourl,username, password):
+    if(professor_records.count_documents({'username': username}) == 1):
+	    return ({"success": False})
     professor_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password, 'photourl': photourl})
     return ({"success": True})
 
@@ -126,6 +133,25 @@ def getcreatedcourses(name):
             courses_json.append({"name": course['name'], "description": course['description'], "students": course['students'], "professor": course['professor']})
     
     return json.dumps(courses_json)
-
+	
+@app.route('/api/created-post/<details>&<username>&<name>')
+def createpost(details,username,name):
+   dateTimeObj = datetime.now()
+   forum.insert_one({"name":name, "details": details, "username": username,"time":dateTimeObj})
+   return ({"success": True})
+	
+@app.route('/api/view-post/<name>')
+def viewallpost(name):
+    forum_json = []
+    if forum.find({}):
+        for forums in forum.find({"name":name}):
+            forum_json.append({"name":forums['name'], "details": forums['details'], "username": forums['username'],"time":forums['dateTimeObj']})
+    return json.dumps(forum_json)
+	
+@app.route('/api/delete-post/<username>&<name>')
+def deletepost(username):
+   forum.remove_one({"name":name, "username": username})
+   return ({"success": True})
+    
 if __name__ == "__main__":
     app.run(debug=True)
