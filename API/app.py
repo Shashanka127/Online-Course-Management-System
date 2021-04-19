@@ -32,6 +32,8 @@ def login(username, password):
 # Create a new Student Account
 @app.route('/api/student-register/<firstname>&<lastname>&<photourl>&<username>&<password>')
 def register(firstname,lastname,photourl,username, password):
+    if(student_records.count_documents({'username': username}) == 1):
+	    return ({"success": False})
     student_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password, 'photourl': photourl})
     return ({"success": True})
 
@@ -41,9 +43,11 @@ def loginp(username, password):
     success = professor_records.count_documents({'username': username, 'password': password}) == 1
     return ({"success": success})
 
-# Create a new Student Account
+# Create a new Professor Account
 @app.route('/api/professor-register/<firstname>&<lastname>&<photourl>&<username>&<password>')
 def registerp(firstname,lastname,photourl,username, password):
+    if(professor_records.count_documents({'username': username}) == 1):
+	    return ({"success": False})
     professor_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password, 'photourl': photourl})
     return ({"success": True})
 
