@@ -12,7 +12,7 @@ export default function ProfessorRegister() {
 
   const registrationHandler = e => {
     e.preventDefault();
-    fetch('/api/professorregister/' + profile + '&' + firstName + '&' + lastName + '&' + username + '&' + password, {
+    fetch('/api/professor-register/' + profile + '&' + firstName + '&' + lastName + '&' + username + '&' + password, {
       method: 'GET'
     })
         .then(response => response.json())

@@ -15,7 +15,7 @@ export default function Profile({ usertype, username }) {
 
   useEffect(() => {
     if (usertype === "student") {
-      fetch('/api/studentprofile/' + username, {
+      fetch('/api/student-profile/' + username, {
       method: 'GET'
       })
           .then(response => response.json())
@@ -23,7 +23,7 @@ export default function Profile({ usertype, username }) {
               setUserData(data[0]);
           });
 
-      fetch('/api/getenrolledcourses/' + username, {
+      fetch('/api/enrolled-courses/' + username, {
         method: 'GET'
       })
           .then(response => response.json())
@@ -38,7 +38,7 @@ export default function Profile({ usertype, username }) {
           })
     }
     else {
-      fetch('/api/professorprofile/' + username, {
+      fetch('/api/professor-profile/' + username, {
       method: 'GET'
       })
           .then(response => response.json())
@@ -46,7 +46,7 @@ export default function Profile({ usertype, username }) {
               setUserData(data[0]);
           });
 
-      fetch('/api/getcreatedcourses/' + username, {
+      fetch('/api/created-courses/' + username, {
         method: 'GET'
       })
           .then(response => response.json())

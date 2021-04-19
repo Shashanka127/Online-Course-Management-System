@@ -9,7 +9,7 @@ export default function ProfessorLogin() {
 
   const loginHandler = e => {
     e.preventDefault();
-    fetch('/api/professorlogin/' + username + '&' + password, {
+    fetch('/api/professor-login/' + username + '&' + password, {
       method: 'GET'
     })
         .then(response => response.json())

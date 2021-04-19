@@ -10,7 +10,7 @@ export default function CreateCourseForm() {
 
   const registrationHandler = e => {
     e.preventDefault();
-    fetch('/api/createcourse/' + username + '&' + courseName + '&' + courseDescription, {
+    fetch('/api/create-course/' + username + '&' + courseName + '&' + courseDescription, {
       method: 'GET'
     })
         .then(response => response.json())
@@ -75,5 +75,5 @@ export default function CreateCourseForm() {
       </div>
     </div>
   )
-  }
+}
   

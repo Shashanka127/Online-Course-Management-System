@@ -29,7 +29,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
   useEffect(() => {
     if (usertype === "student1" || usertype === "student2") {
       if (usertype === "student2") {
-        fetch('/api/getavailablecourses/' + username, {
+        fetch('/api/available-courses/' + username, {
           method: 'GET'
         })
             .then(response => response.json())
@@ -44,7 +44,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
             })
       }
       else {
-        fetch('/api/getenrolledcourses/' + username, {
+        fetch('/api/enrolled-courses/' + username, {
           method: 'GET'
         })
             .then(response => response.json())
@@ -60,7 +60,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
       }
     }
     else {
-      fetch('/api/getcreatedcourses/' + username, {
+      fetch('/api/created-courses/' + username, {
       method: 'GET'
       })
           .then(response => response.json())
@@ -86,7 +86,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
     username = localStorage.getItem("username");
 
     if (courseListType === "available") {
-      fetch('/api/enrollcourse/' + username + '&' + courseName, {
+      fetch('/api/enroll-course/' + username + '&' + courseName, {
         method: 'GET'
       })
           .then(response => response.json())
@@ -99,7 +99,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
           })
     }
     else if (courseListType === "created") {
-      fetch('/api/deletecourse/' + courseName, {
+      fetch('/api/delete-course/' + courseName, {
         method: 'GET'
       })
           .then(response => response.json())
@@ -112,7 +112,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
           })
     }
     else {
-      fetch('/api/unenrollcourse/' + username + '&' + courseName, {
+      fetch('/api/unenroll-course/' + username + '&' + courseName, {
         method: 'GET'
       })
           .then(response => response.json())

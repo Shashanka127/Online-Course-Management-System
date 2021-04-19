@@ -12,7 +12,7 @@ export default function StudentRegister() {
 
   const registrationHandler = e => {
     e.preventDefault();
-    fetch('/api/studentregister/' + profile + '&' + firstName + '&' + lastName + '&' + username + '&' + password, {
+    fetch('/api/student-register/' + profile + '&' + firstName + '&' + lastName + '&' + username + '&' + password, {
       method: 'GET'
     })
         .then(response => response.json())
