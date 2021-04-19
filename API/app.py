@@ -40,6 +40,12 @@ def register(firstname,lastname,photourl,username, password):
     student_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password, 'photourl': photourl})
     return ({"success": True})
 
+# Check if a student's username exists
+@app.route('/api/check-student-username/<username>/')
+def check_student_username(username):
+    success = student_records.count_documents({'username': username}) == 1
+    return ({"success": success})
+
 # Authenticate Professor Login
 @app.route('/api/professor-login/<username>&<password>/')
 def loginp(username, password):
@@ -53,6 +59,12 @@ def registerp(firstname,lastname,photourl,username, password):
 	    return ({"success": False})
     professor_records.insert({'firstname': firstname, 'lastname': lastname, 'username': username, 'password': password, 'photourl': photourl})
     return ({"success": True})
+
+# Check if a professor's username exists
+@app.route('/api/check-profesor-username/<username>/')
+def check_professor_username(username):
+    success = professor_records.count_documents({'username': username}) == 1
+    return ({"success": success})
 
 # --- Profiles ------------------------------------- #
 
