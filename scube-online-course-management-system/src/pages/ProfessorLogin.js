@@ -17,7 +17,7 @@ export default function ProfessorLogin() {
             console.log(data['success']);
             if (data['success']) {
               localStorage.setItem("username", username);
-              history.push('/professorhome');
+              history.push('/professorHome');
             }
             window.location.reload();
         })
@@ -27,12 +27,12 @@ export default function ProfessorLogin() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <img
-            className="mx-auto h-12 w-auto"
-            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-            alt="Workflow"
-          />
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Log in to your account</h2>
+          <h1 className="text-5xl text-center tracking-tight font-extrabold text-indigo-900 sm:text-5xl md:text-6xl">
+            <span className="block xl:inline">SCUBE<br/></span>{' '}
+            <span className="block text-blue-600 xl:inline">Online Course<br/>Management System</span>
+          </h1>
+
+          <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">Log in to your professor account</h2>
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={loginHandler}>
@@ -60,7 +60,7 @@ export default function ProfessorLogin() {
               </label>
               <input
                 id="password"
-                type="text"
+                type="password"
                 name="password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}

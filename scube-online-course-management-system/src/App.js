@@ -22,15 +22,15 @@ export default function App() {
     <Switch>
       <Route exact path="/" component={Welcome} />
       <Route exact path="/login" component={Login} />
-      <Route exact path="/studentlogin" component={StudentLogin} />
-      <Route exact path="/professorlogin" component={ProfessorLogin} />
+      <Route exact path="/studentLogin" component={StudentLogin} />
+      <Route exact path="/professorLogin" component={ProfessorLogin} />
       <Route exact path="/register" component={Register} />
-      <Route exact path="/studentregister" component={StudentRegister} />
-      <Route exact path="/professorregister" component={ProfessorRegister} />
-      <Route exact path="/professorhome" component={ProfessorHomepage} />
+      <Route exact path="/studentRegister" component={StudentRegister} />
+      <Route exact path="/professorRegister" component={ProfessorRegister} />
+      <Route exact path="/professorHome" component={ProfessorHomepage} />
       <Route exact path="/createdCourses" component={CreatedCourses} />
       <Route exact path="/createCourse" component={CreateCourse} />
-      <Route exact path="/studenthome" component={StudentHomepage} />
+      <Route exact path="/studentHome" component={StudentHomepage} />
       <Route exact path="/enrolledCourses" component={EnrolledCourses} />
       <Route exact path='/availableCourses' component={AvailableCourses} />
     </Switch>

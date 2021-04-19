@@ -23,23 +23,23 @@ export default function Login() {
                 <span className="block text-blue-600 xl:inline">Online Course<br/>Management System</span>
               </h1>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                The best damn thing since sliced bread.
+                Choose your role
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
                 <Link
-                  to="/studentlogin"
+                  to="/studentLogin"
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-700 hover:bg-indigo-800 md:py-4 md:text-lg md:px-10"
                 >
-                  Student Log in
+                  Student
                 </Link>
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
                 <Link
-                  to="/professorlogin"
+                  to="/professorLogin"
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-900 bg-indigo-100 hover:bg-indigo-300 md:py-4 md:text-lg md:px-10"
                 >
-                  Professor Log in
+                  Professor
                 </Link>
                 </div>
               </div>

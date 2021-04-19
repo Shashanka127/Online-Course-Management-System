@@ -10,6 +10,8 @@ export default function StudentRegister() {
   const [password, setPassword] = useState("");
   const [profile, setProfile] = useState("");
 
+  const [usernameExists, setUsernameExists] = useState("none");
+
   const registrationHandler = e => {
     e.preventDefault();
     fetch('/api/student-register/' + profile + '&' + firstName + '&' + lastName + '&' + username + '&' + password, {
@@ -20,15 +22,43 @@ export default function StudentRegister() {
             console.log(data['success']);
             if (data['success']) {
               localStorage.setItem("username", username);
-              history.push('/studenthome');
+              history.push('/studentHome');
             }
             window.location.reload();
         })
   }
 
+  const usernameChangeHandler = e => {
+    setUsername(e.target.value);
+    fetch('/api/check-student-username/' + e.target.value, {
+      method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data['success']);
+            if (data['success']) {
+              setUsernameExists("block");
+            }
+            else {
+              setUsernameExists("none");
+            }
+        })
+  }
+
   return (
-    <div className="m-10 justify-items-center">
-      <h1 className="text-3xl tracking-tight font-extrabold text-indigo-900 sm:text-3xl md:text-3xl text-center">Create an account</h1>
+    <div className="m-5 justify-items-center">
+      <h1 className="text-2xl mb-3 text-center tracking-tight font-extrabold text-indigo-900 sm:text-5xl md:text-5xl">
+        <span className="block xl:inline">SCUBE<br/></span>{' '}
+        <span className="block text-blue-600 xl:inline">Online Course<br/>Management System</span>
+      </h1>
+      
+      <div className="hidden sm:block" aria-hidden="true">
+        <div className="py-5">
+        <div className="border-t border-gray-500" />
+        </div>
+      </div>
+
+      <h1 className="text-3xl tracking-tight font-extrabold text-indigo-900 sm:text-xl md:text-3xl text-center">Create an account</h1>
       
       <div className="hidden sm:block" aria-hidden="true">
         <div className="py-5">
@@ -93,9 +123,10 @@ export default function StudentRegister() {
                 name="email_address"
                 id="email_address"
                 autoComplete="email"
-                onChange={e => setUsername(e.target.value)}
+                onChange={e => usernameChangeHandler(e)}
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
+              <span style={{display: usernameExists}} className="text-red-700 text-md"> Username already exists! </span>
               </div>
     
               <div className="col-span-6">

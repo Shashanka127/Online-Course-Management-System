@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import profileImage from '../images/generic-profile.png'
 
 export default function Profile({ usertype, username }) {
   const [userData, setUserData] = useState(
@@ -6,7 +7,7 @@ export default function Profile({ usertype, username }) {
       firstname: "None",
       lastname: "None",
       username: "None",
-      photourl: "None",
+      photourl: profileImage,
     });
 
   const [courses, setCourses] = useState([])
@@ -62,6 +63,16 @@ export default function Profile({ usertype, username }) {
     }
   }, [usertype, username]);
 
+  // function validURL(str) {
+  //   var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+  //     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+  //     '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+  //     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+  //     '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+  //     '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  //   return (!!pattern.test(str));
+  // }
+
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
       <div className="px-2 py-2 sm:px-2">
@@ -71,7 +82,7 @@ export default function Profile({ usertype, username }) {
               <td className='p-3'>
                 <img
                   className="h-48 w-48 rounded-full m-0"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  src={profileImage}
                   alt=""
                 />
               </td>

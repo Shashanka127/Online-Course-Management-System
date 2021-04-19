@@ -3,6 +3,7 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Link, Redirect } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import Profile from '../components/Profile'
+import profileImage from '../images/generic-profile.png'
 
 export default function ProfessorHomepage() {
   let history = useHistory();
@@ -26,11 +27,7 @@ export default function ProfessorHomepage() {
               <div className="flex items-center justify-between h-16">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <img
-                      className="h-8 w-8"
-                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                      alt="Workflow"
-                    />
+                    <span className="block xl:inline text-white font-bold text-2xl">SCUBE</span>
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
@@ -54,7 +51,7 @@ export default function ProfessorHomepage() {
                     <div className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={profileImage}
                         alt=""
                       />
                     </div>
@@ -91,13 +88,12 @@ export default function ProfessorHomepage() {
                   <div className="flex-shrink-0">
                     <img
                       className="h-10 w-10 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      src={profileImage}
                       alt=""
                     />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">Tom Cook</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
+                    <div className="text-base font-medium leading-none text-white">{localStorage.username}</div>
                   </div>
                   <button onClick={() => signOutHandler()} className="ml-auto bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
                     Sign Out

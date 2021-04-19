@@ -11,16 +11,20 @@ export default function CourseList( { courseListType, usertype, username } ) {
   
   let action = "";
   let actionClass = "";
+  let actionMessage = "";
 
   switch (courseListType) {
     case "created": action = "Remove";
                     actionClass = "px-5 py-2 text-red-600 hover:text-red-900 rounded-md bg-red-200 font-semibold";
+                    actionMessage = "Are you sure you want to remove";
                     break;
     case "enrolled": action = "Unenroll";
                     actionClass = "px-5 py-2 text-red-600 hover:text-red-900 rounded-md bg-red-200 font-semibold";
+                    actionMessage = "Are you sure you want to unenroll from";
                     break;
     default:        action = "Enroll";
                     actionClass = "px-5 py-2 text-green-600 hover:text-green-900 rounded-md bg-green-200 font-semibold";
+                    actionMessage = "Are you sure you want to enroll in";
                     break;
   }
 
@@ -168,9 +172,6 @@ export default function CourseList( { courseListType, usertype, username } ) {
                   <tr key={course.name} style={{height: '25vh'}}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10">
-                          <img className="h-10 w-10 rounded-full" src={course.image} alt="" />
-                        </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">{course.name}</div>
                         </div>
@@ -241,11 +242,11 @@ export default function CourseList( { courseListType, usertype, username } ) {
                     </div>
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                       <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                        Enroll
+                        {action}
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Are you sure you want to enroll in<br/><span className="text-indigo-900 font-semibold">{chosenCourse}</span>?
+                          {actionMessage}<br/><span className="text-indigo-900 font-semibold">{chosenCourse}</span>?
                         </p>
                       </div>
                     </div>
