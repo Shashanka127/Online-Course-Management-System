@@ -134,7 +134,7 @@ def getcreatedcourses(name):
 	
 @app.route('/api/created-post/<details>&<username>&<name>')
 def createpost(details,username,name):
-   courses.update_one({"name":name}, {'$push': {"forum":username:details}})
+   courses.update_one({"name":name}, {'$push': {"forum":{"username":username,"details":details}}})
    return ({"success": True})
 	
 @app.route('/api/view-post/<name>')
@@ -148,7 +148,7 @@ def viewallpost(name):
 	
 @app.route('/api/delete-post/<username>')
 def deletepost(username):
-   courses.update_one({"name":name}, {'$pop': {"forum":username}})
+   courses.update_one({"name":name}, {'$pop': {"forum":{"username":username}}})
    return ({"success": True})
     
 if __name__ == "__main__":
