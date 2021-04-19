@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for
 from pymongo import MongoClient
 from flask_cors import CORS, cross_origin
+from datetime import datetime
 import json
 
 # Initializing App parameters
@@ -16,6 +17,7 @@ db = mongoClient.get_database('user_db')
 student_records = db.get_collection('student_records')
 professor_records = db.get_collection('professor_records')
 courses=db.get_collection('courses')
+forum=db.get_collection('forum')
 
 
 # -------------------------------------------------- #
@@ -74,7 +76,7 @@ def professorprofile(username):
 
 @app.route('/api/create-course/<professor>&<name>&<description>')
 def createcourse(professor,name,description):
-    courses.insert_one({"name":name, "description": description, "students": [],"forum":{}, "professor": professor})
+    courses.insert_one({"name":name, "description": description, "students": [], "professor": professor})
     return ({"success": True})
 
 @app.route('/api/delete-course/<name>')
@@ -134,21 +136,21 @@ def getcreatedcourses(name):
 	
 @app.route('/api/created-post/<details>&<username>&<name>')
 def createpost(details,username,name):
-   courses.update_one({"name":name}, {'$set': {"forum":{"username":username,"details":details}}})
+   dateTimeObj = datetime.now()
+   forum.insert_one({"name":name, "details": details, "username": username,"time":dateTimeObj})
    return ({"success": True})
 	
 @app.route('/api/view-post/<name>')
 def viewallpost(name):
-    post_json = []
-
-    if courses.find({}):
-        for post in courses.find({"name":name}):
-            post_json.append({post['forum']})
-    return json.dumps(post_json)
+    forum_json = []
+    if forum.find({}):
+        for forums in forum.find({"name":name}):
+            forum_json.append({"name":name, "details": details, "username": username,"time":dateTimeObj})
+    return json.dumps(forum_json)
 	
-@app.route('/api/delete-post/<username>')
+@app.route('/api/delete-post/<username>&<name>')
 def deletepost(username):
-   courses.update_one({"name":name}, {'$unset': {"forum":{"username":username}}})
+   forum.remove_one({"name":name, "username": username})
    return ({"success": True})
     
 if __name__ == "__main__":
