@@ -16,6 +16,7 @@ db = mongoClient.get_database('user_db')
 student_records = db.get_collection('student_records')
 professor_records = db.get_collection('professor_records')
 courses=db.get_collection('courses')
+forum=db.get_collection('forum')
 
 # -------------------------------------------------- #
 # ---------------- Defining the API ---------------- #
@@ -130,6 +131,26 @@ def getcreatedcourses(name):
             courses_json.append({"name": course['name'], "description": course['description'], "students": course['students'], "professor": course['professor']})
     
     return json.dumps(courses_json)
+	
+@app.route('/api/created-post/<details>&<id>')
+def createpost(details,id):
+	forum.insert_one({"details":details,"id":id})
+	return ({"success": True})
+    
+	
+@app.route('/api/view-post/')
+def viewallpost():
+     forum_json = []
 
+    if forum.find({}):
+        for forum in forum.find({}):
+            forum_json.append({"details": forum['details'],"id": forum['id']})
+    return json.dumps(forum_json)
+	
+@app.route('/api/delete-post/<id>')
+def deletepost(id):
+	forum.delete_one({"id":id})
+	return ({"success": True})
+    
 if __name__ == "__main__":
     app.run(debug=True)
