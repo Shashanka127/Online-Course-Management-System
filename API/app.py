@@ -148,7 +148,7 @@ def viewallpost(name):
 	
 @app.route('/api/delete-post/<username>')
 def deletepost(username):
-   courses.update_one({"name":name}, {'$pop': {"forum":{"username":username}}})
+   courses.update_one({"name":name}, {'$pull': {"forum":{"username":username}}})
    return ({"success": True})
     
 if __name__ == "__main__":
