@@ -132,9 +132,9 @@ def getcreatedcourses(name):
     
     return json.dumps(courses_json)
 	
-@app.route('/api/created-post/<details>&<id>&<name>')
-def createpost(details,id,name):
-   courses.update_one({"name":name}, {'$push': {"forum":id:details}})
+@app.route('/api/created-post/<details>&<username>&<name>')
+def createpost(details,username,name):
+   courses.update_one({"name":name}, {'$push': {"forum":username:details}})
    return ({"success": True})
 	
 @app.route('/api/view-post/<name>')
@@ -146,9 +146,9 @@ def viewallpost(name):
             post_json.append({post['forum']})
     return json.dumps(post_json)
 	
-@app.route('/api/delete-post/<id>')
-def deletepost(id):
-   courses.update_one({"name":name}, {'$pop': {"forum":id}})
+@app.route('/api/delete-post/<username>')
+def deletepost(username):
+   courses.update_one({"name":name}, {'$pop': {"forum":username}})
    return ({"success": True})
     
 if __name__ == "__main__":
