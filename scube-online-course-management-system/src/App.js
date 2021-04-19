@@ -16,6 +16,7 @@ import ProfessorRegister from './pages/ProfessorRegister';
 import ProfessorHomepage from './pages/ProfessorHomepage';
 import CreatedCourses from './pages/CreatedCourses';
 import CreateCourse from './pages/CreateCourse';
+import Forum from './components/Forum';
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
       <Route exact path="/studentHome" component={StudentHomepage} />
       <Route exact path="/enrolledCourses" component={EnrolledCourses} />
       <Route exact path='/availableCourses' component={AvailableCourses} />
+      <Route exact path='/forumTesting' component={Forum} />
     </Switch>
   )
 }
