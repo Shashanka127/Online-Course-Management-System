@@ -116,7 +116,7 @@ def delete_professor_account():
 
 # --- Profiles ------------------------------------- #
 
-@app.route('/api/student-profile', methods=['POST'])
+@app.route('/api/student-profile', methods=['GET'])
 def studentprofile():
     username = request.args['username']
     student_json = []
@@ -125,7 +125,7 @@ def studentprofile():
             student_json.append({"firstname": student['firstname'], "lastname": student['lastname'], "username": student['username'], "password": student['password'],"photoURL":student['photoURL']})
     return json.dumps(student_json)
 
-@app.route('/api/professor-profile', methods=['POST'])
+@app.route('/api/professor-profile', methods=['GET'])
 def professorprofile():
     username = request.args['username']
     professor_json = []
@@ -138,7 +138,7 @@ def professorprofile():
 
 @app.route('/api/create-course', methods=['POST'])
 def createcourse():
-    name = request.args['name']
+    name = request.args['courseName']
     professor = request.args['professor']
     description = request.args['description']
     courses.insert_one({"name":name, "description": description, "students": [], "professor": professor})
@@ -155,20 +155,21 @@ def deletecourse():
 @app.route('/api/enroll-course', methods=['POST'])
 def enrollcourse():
    username = request.args['username']
-   name = request.args['name']
+   name = request.args['courseName']
+
    courses.update_one({"name":name}, {'$push': {"students": username}})
    return ({"success": True})
 
 @app.route('/api/unenroll-course', methods=['POST'])
 def unenrollcourse():
     username = request.args['username']
-    name = request.args['name']
+    name = request.args['courseName']
     courses.update_one({"name":name}, {'$pull': {"students": username}})
     return ({"success": True})
 
 # --- Accessing Courses ---------------------------- #
 
-@app.route('/api/available-course', methods=['GET'])
+@app.route('/api/available-courses', methods=['GET'])
 def getavailablecourses():
     username = request.args['username']
     courses_json = []
@@ -198,11 +199,11 @@ def getenrolledcourses():
 
 @app.route('/api/created-courses', methods=['GET'])
 def getcreatedcourses():
-    name = request.args['name']
+    username = request.args['username']
     courses_json = []
 
     if courses.find({}):
-        for course in courses.find({"professor":name}).sort("name"):
+        for course in courses.find({"professor":username}).sort("name"):
             courses_json.append({"name": course['name'], "description": course['description'], "students": course['students'], "professor": course['professor']})
     
     return json.dumps(courses_json)
