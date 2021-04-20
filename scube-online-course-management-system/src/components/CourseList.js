@@ -33,7 +33,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
   useEffect(() => {
     if (usertype === "student1" || usertype === "student2") {
       if (usertype === "student2") {
-        fetch('/api/available-courses/' + username, {
+        fetch('/api/available-courses?username=' + username, {
           method: 'GET'
         })
             .then(response => response.json())
@@ -48,7 +48,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
             })
       }
       else {
-        fetch('/api/enrolled-courses/' + username, {
+        fetch('/api/enrolled-courses?username=' + username, {
           method: 'GET'
         })
             .then(response => response.json())
@@ -64,7 +64,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
       }
     }
     else {
-      fetch('/api/created-courses/' + username, {
+      fetch('/api/created-courses?username=' + username, {
       method: 'GET'
       })
           .then(response => response.json())
@@ -90,8 +90,8 @@ export default function CourseList( { courseListType, usertype, username } ) {
     username = localStorage.getItem("username");
 
     if (courseListType === "available") {
-      fetch('/api/enroll-course/' + username + '&' + courseName, {
-        method: 'GET'
+      fetch('/api/enroll-course?username=' + username + '&courseName=' + courseName, {
+        method: 'POST'
       })
           .then(response => response.json())
           .then(data => {
@@ -103,8 +103,8 @@ export default function CourseList( { courseListType, usertype, username } ) {
           })
     }
     else if (courseListType === "created") {
-      fetch('/api/delete-course/' + courseName, {
-        method: 'GET'
+      fetch('/api/delete-course?username=' + courseName, {
+        method: 'DELETE'
       })
           .then(response => response.json())
           .then(data => {
@@ -116,8 +116,8 @@ export default function CourseList( { courseListType, usertype, username } ) {
           })
     }
     else {
-      fetch('/api/unenroll-course/' + username + '&' + courseName, {
-        method: 'GET'
+      fetch('/api/unenroll-course?username=' + username + '&courseName=' + courseName, {
+        method: 'POST'
       })
           .then(response => response.json())
           .then(data => {
