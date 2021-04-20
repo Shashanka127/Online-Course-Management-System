@@ -9,7 +9,7 @@ export default function StudentLogin() {
 
   const loginHandler = e => {
     e.preventDefault();
-    fetch('/api/student-login/' + username + '&' + password, {
+    fetch('/api/student-login?username=' + username + '&password=' + password, {
       method: 'GET'
     })
         .then(response => response.json())

@@ -4,24 +4,39 @@ import { useHistory } from 'react-router-dom';
 export default function StudentRegister() {
   let history = useHistory();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [profile, setProfile] = useState("");
+  const [userData, setUserData] = useState({
+    'firstName': "none",
+    'lastName': "none",
+    'photoURL': "none",
+    'username': "none",
+    'password': "none"
+  });
 
   const [usernameExists, setUsernameExists] = useState("none");
 
+  const generateAPICall = (baseURL, params) => {
+    let requestURL = baseURL;
+
+    for (const key in params) {
+      requestURL += `${key}=${params[key]}&`;
+    }
+    requestURL = requestURL.substring(0, requestURL.length - 1);
+
+    return (requestURL)
+  }
+
   const registrationHandler = e => {
     e.preventDefault();
-    fetch('/api/student-register/' + profile + '&' + firstName + '&' + lastName + '&' + username + '&' + password, {
-      method: 'GET'
+    let requestURL = generateAPICall('/api/student-register?', userData);
+
+    fetch(requestURL, {
+      method: 'POST'
     })
         .then(response => response.json())
         .then(data => {
             console.log(data['success']);
             if (data['success']) {
-              localStorage.setItem("username", username);
+              localStorage.setItem("username", userData.username);
               history.push('/studentHome');
             }
             window.location.reload();
@@ -29,8 +44,8 @@ export default function StudentRegister() {
   }
 
   const usernameChangeHandler = e => {
-    setUsername(e.target.value);
-    fetch('/api/check-student-username/' + e.target.value, {
+    setUserData({...userData, 'username': e.target.value})
+    fetch('/api/check-student-username?username=' + e.target.value, {
       method: 'GET'
     })
         .then(response => response.json())
@@ -81,7 +96,7 @@ export default function StudentRegister() {
                 name="first_name"
                 id="first_name"
                 autoComplete="given-name"
-                onChange={e => setFirstName(e.target.value)}
+                onChange={e => setUserData({...userData, 'firstName': e.target.value})}
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
               </div>
@@ -95,7 +110,7 @@ export default function StudentRegister() {
                 name="last_name"
                 id="last_name"
                 autoComplete="family-name"
-                onChange={e => setLastName(e.target.value)}
+                onChange={e => setUserData({...userData, 'lastName': e.target.value})}
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
               </div>
@@ -109,7 +124,7 @@ export default function StudentRegister() {
                 name="profile_pic_url"
                 id="profile_pic_url"
                 autoComplete="family-name"
-                onChange={e => setProfile(e.target.value)}
+                onChange={e => setUserData({...userData, 'photoURL': e.target.value})}
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
               </div>
@@ -151,7 +166,7 @@ export default function StudentRegister() {
                 name="confirm_password"
                 id="confirm_password"
                 autoComplete="street-address"
-                onChange={e => setPassword(e.target.value)}
+                onChange={e => setUserData({...userData, 'password': e.target.value})}
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
               </div>
