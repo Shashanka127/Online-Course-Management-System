@@ -213,7 +213,7 @@ def createpost():
    username = request.args['username']
    name = request.args['name']
    details = request.args['details']
-   useetype = request.args['usertype']
+   usertype = request.args['usertype']
    dateTimeObj = datetime.now()
    forum.insert_one({"name":name, "details": details, "username": username,"time":dateTimeObj,"usertype":usertype})
    return ({"success": True})
