@@ -144,7 +144,7 @@ def createcourse():
     courses.insert_one({"name":name, "description": description, "students": [], "professor": professor})
     return ({"success": True})
 
-@app.route('/api/delete-course', methods=['POST'])
+@app.route('/api/delete-course', methods=['DELETE'])
 def deletecourse():
     name = request.args['name']
     courses.delete_one({"name": name})
@@ -152,14 +152,14 @@ def deletecourse():
 
 # --- Course Enrollment & Unenrollment ------------- #
 
-@app.route('/api/enroll-course', methods=['GET'])
+@app.route('/api/enroll-course', methods=['POST'])
 def enrollcourse():
    username = request.args['username']
    name = request.args['name']
    courses.update_one({"name":name}, {'$push': {"students": username}})
    return ({"success": True})
 
-@app.route('/api/unenroll-course', methods=['GET'])
+@app.route('/api/unenroll-course', methods=['POST'])
 def unenrollcourse():
     username = request.args['username']
     name = request.args['name']
@@ -168,7 +168,7 @@ def unenrollcourse():
 
 # --- Accessing Courses ---------------------------- #
 
-@app.route('/api/available-course', methods=['POST'])
+@app.route('/api/available-course', methods=['GET'])
 def getavailablecourses():
     username = request.args['username']
     courses_json = []
@@ -185,7 +185,7 @@ def getavailablecourses():
 
     return json.dumps(unenrolled_json)
 
-@app.route('/api/enrolled-courses', methods=['POST'])
+@app.route('/api/enrolled-courses', methods=['GET'])
 def getenrolledcourses():
     username = request.args['username']
     courses_json = []
@@ -196,7 +196,7 @@ def getenrolledcourses():
     
     return json.dumps(courses_json)
 
-@app.route('/api/created-courses', methods=['POST'])
+@app.route('/api/created-courses', methods=['GET'])
 def getcreatedcourses():
     name = request.args['name']
     courses_json = []
@@ -207,7 +207,7 @@ def getcreatedcourses():
     
     return json.dumps(courses_json)
     
-@app.route('/api/created-post', methods=['POST'])
+@app.route('/api/create-post', methods=['POST'])
 def createpost():
    username = request.args['username']
    name = request.args['name']
@@ -216,7 +216,7 @@ def createpost():
    forum.insert_one({"name":name, "details": details, "username": username,"time":dateTimeObj})
    return ({"success": True})
     
-@app.route('/api/view-post', methods=['POST'])
+@app.route('/api/view-post', methods=['GET'])
 def viewallpost():
     name = request.args['name']
     forum_json = []
