@@ -208,29 +208,35 @@ def getcreatedcourses():
     
     return json.dumps(courses_json)
     
+# --- Accessing Forum ---------------------------- #
+
 @app.route('/api/create-post', methods=['POST'])
 def createpost():
    username = request.args['username']
-   name = request.args['name']
-   details = request.args['details']
-   usertype = request.args['usertype']
+   name = request.args['courseName']
+   details = request.args['content']
+   usertype = request.args['userType']
+
    dateTimeObj = datetime.now()
-   forum.insert_one({"name":name, "details": details, "username": username,"time":dateTimeObj,"usertype":usertype})
+   
+   forum.insert_one({"name":name, "details": details, "username": username,"time":str(dateTimeObj),"usertype":usertype})
    return ({"success": True})
-    
+
 @app.route('/api/view-post', methods=['GET'])
 def viewallpost():
-    name = request.args['name']
+    name = request.args['courseName']
     forum_json = []
     if forum.find({}):
         for forums in forum.find({"name":name}):
-            forum_json.append({"name":forums['name'], "details": forums['details'], "username": forums['username'],"time":forums['dateTimeObj'],"usertype":forums['usertype']})
+            forum_json.append({"name":forums['name'], "details": forums['details'], "username": forums['username'],"time":forums['time'],"usertype":forums['usertype']})
     return json.dumps(forum_json)
     
 @app.route('/api/delete-post', methods=['DELETE'])
 def deletepost():
+   name = request.args['courseName']
    username = request.args['username']
-   forum.remove_one({"name":name, "username": username})
+   time = request.args['time']
+   forum.delete_one({"name":name, "username": username, "time": time})
    return ({"success": True})
     
 if __name__ == "__main__":
