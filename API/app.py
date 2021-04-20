@@ -116,7 +116,7 @@ def delete_professor_account():
 
 # --- Profiles ------------------------------------- #
 
-@app.route('/api/student-profile?<username>', methods=['POST'])
+@app.route('/api/student-profile', methods=['POST'])
 def studentprofile():
     username = request.args['username']
     student_json = []
@@ -125,7 +125,7 @@ def studentprofile():
             student_json.append({"firstname": student['firstname'], "lastname": student['lastname'], "username": student['username'], "password": student['password'],"photoURL":student['photoURL']})
     return json.dumps(student_json)
 
-@app.route('/api/professor-profile?<username>', methods=['POST'])
+@app.route('/api/professor-profile', methods=['POST'])
 def professorprofile():
     username = request.args['username']
     professor_json = []
@@ -136,7 +136,7 @@ def professorprofile():
 
 # --- Course Creation & Deletion ------------------- #
 
-@app.route('/api/create-course?<professor>&<name>&<description>', methods=['POST'])
+@app.route('/api/create-course', methods=['POST'])
 def createcourse():
     name = request.args['name']
     professor = request.args['professor']
@@ -144,7 +144,7 @@ def createcourse():
     courses.insert_one({"name":name, "description": description, "students": [], "professor": professor})
     return ({"success": True})
 
-@app.route('/api/delete-course?<name>', methods=['POST'])
+@app.route('/api/delete-course', methods=['POST'])
 def deletecourse():
     name = request.args['name']
     courses.delete_one({"name": name})
@@ -152,14 +152,14 @@ def deletecourse():
 
 # --- Course Enrollment & Unenrollment ------------- #
 
-@app.route('/api/enroll-course?<username>&<name>', methods=['GET'])
+@app.route('/api/enroll-course', methods=['GET'])
 def enrollcourse():
    username = request.args['username']
    name = request.args['name']
    courses.update_one({"name":name}, {'$push': {"students": username}})
    return ({"success": True})
 
-@app.route('/api/unenroll-course?<username>&<name>', methods=['GET'])
+@app.route('/api/unenroll-course', methods=['GET'])
 def unenrollcourse():
     username = request.args['username']
     name = request.args['name']
@@ -168,7 +168,7 @@ def unenrollcourse():
 
 # --- Accessing Courses ---------------------------- #
 
-@app.route('/api/available-courses?<username>', methods=['POST'])
+@app.route('/api/available-course', methods=['POST'])
 def getavailablecourses():
     username = request.args['username']
     courses_json = []
@@ -185,7 +185,7 @@ def getavailablecourses():
 
     return json.dumps(unenrolled_json)
 
-@app.route('/api/enrolled-courses?<username>', methods=['POST'])
+@app.route('/api/enrolled-courses', methods=['POST'])
 def getenrolledcourses():
     username = request.args['username']
     courses_json = []
@@ -196,7 +196,7 @@ def getenrolledcourses():
     
     return json.dumps(courses_json)
 
-@app.route('/api/created-courses?<name>', methods=['POST'])
+@app.route('/api/created-courses', methods=['POST'])
 def getcreatedcourses():
     name = request.args['name']
     courses_json = []
@@ -207,7 +207,7 @@ def getcreatedcourses():
     
     return json.dumps(courses_json)
     
-@app.route('/api/created-post?<details>&<username>&<name>', methods=['POST'])
+@app.route('/api/created-post', methods=['POST'])
 def createpost():
    username = request.args['username']
    name = request.args['name']
@@ -216,7 +216,7 @@ def createpost():
    forum.insert_one({"name":name, "details": details, "username": username,"time":dateTimeObj})
    return ({"success": True})
     
-@app.route('/api/view-post?<name>', methods=['POST'])
+@app.route('/api/view-post', methods=['POST'])
 def viewallpost():
     name = request.args['name']
     forum_json = []
@@ -225,7 +225,7 @@ def viewallpost():
             forum_json.append({"name":forums['name'], "details": forums['details'], "username": forums['username'],"time":forums['dateTimeObj']})
     return json.dumps(forum_json)
     
-@app.route('/api/delete-post?<username>&<name>', methods=['DELETE'])
+@app.route('/api/delete-post', methods=['DELETE'])
 def deletepost():
    username = request.args['username']
    forum.remove_one({"name":name, "username": username})
