@@ -116,16 +116,18 @@ def delete_professor_account():
 
 # --- Profiles ------------------------------------- #
 
-@app.route('/api/student-profile?<username>')
-def studentprofile(username):
+@app.route('/api/student-profile?<username>', methods=['POST'])
+def studentprofile():
+    username = request.args['username']
     student_json = []
     if student_records.find({}):
         for student in student_records.find({"username":username}):
             student_json.append({"firstname": student['firstname'], "lastname": student['lastname'], "username": student['username'], "password": student['password'],"photoURL":student['photoURL']})
     return json.dumps(student_json)
 
-@app.route('/api/professor-profile?<username>')
-def professorprofile(username):
+@app.route('/api/professor-profile?<username>', methods=['POST'])
+def professorprofile():
+    username = request.args['username']
     professor_json = []
     if professor_records.find({}):
         for professor in professor_records.find({"username":username}):
@@ -134,32 +136,41 @@ def professorprofile(username):
 
 # --- Course Creation & Deletion ------------------- #
 
-@app.route('/api/create-course?<professor>&<name>&<description>')
-def createcourse(professor,name,description):
+@app.route('/api/create-course?<professor>&<name>&<description>', methods=['POST'])
+def createcourse():
+    name = request.args['name']
+    professor = request.args['professor']
+    description = request.args['description']
     courses.insert_one({"name":name, "description": description, "students": [], "professor": professor})
     return ({"success": True})
 
-@app.route('/api/delete-course?<name>')
-def deletecourse(name):
+@app.route('/api/delete-course?<name>', methods=['POST'])
+def deletecourse():
+    name = request.args['name']
     courses.delete_one({"name": name})
     return ({"success": True})
 
 # --- Course Enrollment & Unenrollment ------------- #
 
-@app.route('/api/enroll-course?<username>&<name>')
-def enrollcourse(username, name):
+@app.route('/api/enroll-course?<username>&<name>', methods=['GET'])
+def enrollcourse():
+   username = request.args['username']
+   name = request.args['name']
    courses.update_one({"name":name}, {'$push': {"students": username}})
    return ({"success": True})
 
-@app.route('/api/unenroll-course?<username>&<name>')
-def unenrollcourse(username,name):
+@app.route('/api/unenroll-course?<username>&<name>', methods=['GET'])
+def unenrollcourse():
+    username = request.args['username']
+    name = request.args['name']
     courses.update_one({"name":name}, {'$pull': {"students": username}})
     return ({"success": True})
 
 # --- Accessing Courses ---------------------------- #
 
-@app.route('/api/available-courses?<username>')
-def getavailablecourses(username):
+@app.route('/api/available-courses?<username>', methods=['POST'])
+def getavailablecourses():
+    username = request.args['username']
     courses_json = []
     enrolled_json= []
    
@@ -174,8 +185,9 @@ def getavailablecourses(username):
 
     return json.dumps(unenrolled_json)
 
-@app.route('/api/enrolled-courses?<username>')
-def getenrolledcourses(username):
+@app.route('/api/enrolled-courses?<username>', methods=['POST'])
+def getenrolledcourses():
+    username = request.args['username']
     courses_json = []
 
     if courses.find({}):
@@ -184,8 +196,9 @@ def getenrolledcourses(username):
     
     return json.dumps(courses_json)
 
-@app.route('/api/created-courses?<name>')
-def getcreatedcourses(name):
+@app.route('/api/created-courses?<name>', methods=['POST'])
+def getcreatedcourses():
+    name = request.args['name']
     courses_json = []
 
     if courses.find({}):
@@ -194,22 +207,27 @@ def getcreatedcourses(name):
     
     return json.dumps(courses_json)
     
-@app.route('/api/created-post?<details>&<username>&<name>')
-def createpost(details,username,name):
+@app.route('/api/created-post?<details>&<username>&<name>', methods=['POST'])
+def createpost():
+   username = request.args['username']
+   name = request.args['name']
+   details = request.args['details']
    dateTimeObj = datetime.now()
    forum.insert_one({"name":name, "details": details, "username": username,"time":dateTimeObj})
    return ({"success": True})
     
-@app.route('/api/view-post?<name>')
-def viewallpost(name):
+@app.route('/api/view-post?<name>', methods=['POST'])
+def viewallpost():
+    name = request.args['name']
     forum_json = []
     if forum.find({}):
         for forums in forum.find({"name":name}):
             forum_json.append({"name":forums['name'], "details": forums['details'], "username": forums['username'],"time":forums['dateTimeObj']})
     return json.dumps(forum_json)
     
-@app.route('/api/delete-post?<username>&<name>')
-def deletepost(username):
+@app.route('/api/delete-post?<username>&<name>', methods=['DELETE'])
+def deletepost():
+   username = request.args['username']
    forum.remove_one({"name":name, "username": username})
    return ({"success": True})
     
