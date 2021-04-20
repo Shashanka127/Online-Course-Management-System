@@ -21,6 +21,7 @@ export default function ProfessorLogin() {
             console.log(data['success']);
             if (data['success']) {
               localStorage.setItem("username", credentials.username);
+              localStorage.setItem("usertype", "professor");
               history.push('/professorHome');
             }
             window.location.reload();

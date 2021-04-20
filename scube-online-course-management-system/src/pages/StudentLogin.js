@@ -21,6 +21,7 @@ export default function StudentLogin() {
             console.log(data['success']);
             if (data['success']) {
               localStorage.setItem("username", credentials.username);
+              localStorage.setItem("usertype", "student");
               history.push('/studentHome');
             }
             window.location.reload();
