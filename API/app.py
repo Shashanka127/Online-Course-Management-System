@@ -213,8 +213,9 @@ def createpost():
    username = request.args['username']
    name = request.args['name']
    details = request.args['details']
+   useetype = request.args['usertype']
    dateTimeObj = datetime.now()
-   forum.insert_one({"name":name, "details": details, "username": username,"time":dateTimeObj})
+   forum.insert_one({"name":name, "details": details, "username": username,"time":dateTimeObj,"usertype":usertype})
    return ({"success": True})
     
 @app.route('/api/view-post', methods=['GET'])
@@ -223,7 +224,7 @@ def viewallpost():
     forum_json = []
     if forum.find({}):
         for forums in forum.find({"name":name}):
-            forum_json.append({"name":forums['name'], "details": forums['details'], "username": forums['username'],"time":forums['dateTimeObj']})
+            forum_json.append({"name":forums['name'], "details": forums['details'], "username": forums['username'],"time":forums['dateTimeObj'],"usertype":forums['usertype']})
     return json.dumps(forum_json)
     
 @app.route('/api/delete-post', methods=['DELETE'])
