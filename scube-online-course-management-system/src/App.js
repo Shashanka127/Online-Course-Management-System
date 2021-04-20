@@ -16,6 +16,9 @@ import ProfessorRegister from './pages/ProfessorRegister';
 import ProfessorHomepage from './pages/ProfessorHomepage';
 import CreatedCourses from './pages/CreatedCourses';
 import CreateCourse from './pages/CreateCourse';
+import CourseDashboard from './pages/CourseDashboard';
+import CourseAssignments from './pages/CourseAssignments';
+import CourseForum from './pages/CourseForum';
 
 export default function App() {
   return (
@@ -33,6 +36,9 @@ export default function App() {
       <Route exact path="/studentHome" component={StudentHomepage} />
       <Route exact path="/enrolledCourses" component={EnrolledCourses} />
       <Route exact path='/availableCourses' component={AvailableCourses} />
+      <Route exact path='/courseDashboard' component={CourseDashboard} />
+      <Route exact path='/courseAssignments' component={CourseAssignments} />
+      <Route exact path='/courseForum' component={CourseForum} />
     </Switch>
   )
 }

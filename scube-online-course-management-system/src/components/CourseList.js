@@ -130,6 +130,12 @@ export default function CourseList( { courseListType, usertype, username } ) {
     }
   }
 
+  const redirectToDashboard = (courseName) => {
+    localStorage.setItem("chosenCourse", courseName)
+    history.push('/courseDashboard');
+    window.location.reload();
+  }
+
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto">
@@ -173,7 +179,10 @@ export default function CourseList( { courseListType, usertype, username } ) {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{course.name}</div>
+                          {courseListType === "enrolled" || courseListType === "created" ?
+                            <div id={course.name} className="text-sm font-medium text-gray-900 cursor-pointer" onClick={e => redirectToDashboard(e.target.id)}>{course.name}</div> :
+                            <div className="text-sm font-medium text-gray-900">{course.name}</div>
+                          }
                         </div>
                       </div>
                     </td>
