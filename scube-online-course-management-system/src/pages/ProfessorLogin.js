@@ -1,22 +1,26 @@
 import { React, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { generateAPICall } from '../utils'
 
 export default function ProfessorLogin() {
   let history = useHistory();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [credentials, setCredentials] = useState({
+    'username': '',
+    'password': ''
+  });
 
   const loginHandler = e => {
     e.preventDefault();
-    fetch('/api/professor-login/' + username + '&' + password, {
+    let requestURL = generateAPICall('/api/professor-login?', credentials)
+    fetch(requestURL, {
       method: 'GET'
     })
         .then(response => response.json())
         .then(data => {
             console.log(data['success']);
             if (data['success']) {
-              localStorage.setItem("username", username);
+              localStorage.setItem("username", credentials.username);
               history.push('/professorHome');
             }
             window.location.reload();
@@ -45,8 +49,8 @@ export default function ProfessorLogin() {
                 id="username"
                 type="text"
                 name="username"
-                value={username}
-                onChange={e => setUsername(e.target.value)}
+                value={credentials.username}
+                onChange={e => setCredentials({...credentials, 'username': e.target.value})}
                 placeholder="Username"
                 autoFocus
                 autoComplete='off'
@@ -62,8 +66,8 @@ export default function ProfessorLogin() {
                 id="password"
                 type="password"
                 name="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
+                value={credentials.password}
+                onChange={e => setCredentials({...credentials, 'password': e.target.value})}
                 placeholder="Password"
                 autoComplete='off'
                 required

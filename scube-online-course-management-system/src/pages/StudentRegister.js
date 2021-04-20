@@ -1,34 +1,23 @@
 import { React, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { generateAPICall } from '../utils'
 
 export default function StudentRegister() {
   let history = useHistory();
 
   const [userData, setUserData] = useState({
-    'firstName': "none",
-    'lastName': "none",
-    'photoURL': "none",
-    'username': "none",
-    'password': "none"
+    'firstName': 'none',
+    'lastName': 'none',
+    'photoURL': 'none',
+    'username': 'none',
+    'password': 'none'
   });
 
-  const [usernameExists, setUsernameExists] = useState("none");
-
-  const generateAPICall = (baseURL, params) => {
-    let requestURL = baseURL;
-
-    for (const key in params) {
-      requestURL += `${key}=${params[key]}&`;
-    }
-    requestURL = requestURL.substring(0, requestURL.length - 1);
-
-    return (requestURL)
-  }
+  const [usernameExists, setUsernameExists] = useState('none');
 
   const registrationHandler = e => {
     e.preventDefault();
     let requestURL = generateAPICall('/api/student-register?', userData);
-
     fetch(requestURL, {
       method: 'POST'
     })
@@ -55,7 +44,7 @@ export default function StudentRegister() {
               setUsernameExists("block");
             }
             else {
-              setUsernameExists("none");
+              setUsernameExists('none');
             }
         })
   }

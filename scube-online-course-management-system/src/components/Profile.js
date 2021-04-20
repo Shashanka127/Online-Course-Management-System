@@ -16,7 +16,7 @@ export default function Profile({ usertype, username }) {
 
   useEffect(() => {
     if (usertype === "student") {
-      fetch('/api/student-profile/' + username, {
+      fetch('/api/student-profile?username=' + username, {
       method: 'GET'
       })
           .then(response => response.json())
@@ -24,7 +24,7 @@ export default function Profile({ usertype, username }) {
               setUserData(data[0]);
           });
 
-      fetch('/api/enrolled-courses/' + username, {
+      fetch('/api/enrolled-courses?username=' + username, {
         method: 'GET'
       })
           .then(response => response.json())
@@ -39,7 +39,7 @@ export default function Profile({ usertype, username }) {
           })
     }
     else {
-      fetch('/api/professor-profile/' + username, {
+      fetch('/api/professor-profile?username=' + username, {
       method: 'GET'
       })
           .then(response => response.json())
@@ -47,7 +47,7 @@ export default function Profile({ usertype, username }) {
               setUserData(data[0]);
           });
 
-      fetch('/api/created-courses/' + username, {
+      fetch('/api/created-courses?username=' + username, {
         method: 'GET'
       })
           .then(response => response.json())
@@ -62,16 +62,6 @@ export default function Profile({ usertype, username }) {
           })
     }
   }, [usertype, username]);
-
-  // function validURL(str) {
-  //   var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-  //     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-  //     '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-  //     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-  //     '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-  //     '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-  //   return (!!pattern.test(str));
-  // }
 
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
