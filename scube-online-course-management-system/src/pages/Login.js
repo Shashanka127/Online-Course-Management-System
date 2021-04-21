@@ -1,59 +1,111 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { React, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { generateAPICall } from '../utils'
 
 export default function Login() {
-  return (
-    <div>
-      <div className="mx-auto">
-        <div className="relative z-10 pt-10 pb-5 bg-white lg:max-w-2xl h-screen">
-          <svg
-            className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2"
-            fill="currentColor"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <polygon points="50,0 100,0 50,100 0,100" />
-          </svg>
+  let history = useHistory();
 
-          <main className="mx-auto max-w-5xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28 ">
-            <div className="sm:text-center lg:text-left">
-              <h1 className="text-5xl tracking-tight font-extrabold text-indigo-900 sm:text-5xl md:text-6xl">
-                <span className="block xl:inline">SCUBE<br/></span>{' '}
-                <span className="block text-blue-600 xl:inline">Online Course<br/>Management System</span>
-              </h1>
-              <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                Choose your role
-              </p>
-              <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                <div className="rounded-md shadow">
-                <Link
-                  to="/studentLogin"
-                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-700 hover:bg-indigo-800 md:py-4 md:text-lg md:px-10"
-                >
-                  Student
-                </Link>
-                </div>
-                <div className="mt-3 sm:mt-0 sm:ml-3">
-                <Link
-                  to="/professorLogin"
-                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-900 bg-indigo-100 hover:bg-indigo-300 md:py-4 md:text-lg md:px-10"
-                >
-                  Professor
-                </Link>
-                </div>
-              </div>
-            </div>
-          </main>
+  const [credentials, setCredentials] = useState({
+    'username': '',
+    'password': ''
+  });
+
+  const [userType, setAccountType] = useState("student");
+
+  const loginHandler = e => {
+    e.preventDefault()
+    let requestURL = generateAPICall('/api/' + userType + '-login?', credentials)
+    fetch(requestURL, {
+      method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data['success']);
+            if (data['success']) {
+              localStorage.setItem("username", credentials.username);
+              localStorage.setItem("usertype", userType);
+              history.push('/' + userType + 'Home');
+            }
+            window.location.reload();
+        })
+  }
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        <div>
+          <h1 className="text-5xl text-center tracking-tight font-extrabold text-indigo-900 sm:text-5xl md:text-6xl">
+            <span className="block xl:inline">SCUBE<br/></span>{' '}
+            <span className="block text-blue-600 xl:inline">Online Course<br/>Management System</span>
+          </h1>
+
+          <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">Log in to your account</h2>
         </div>
-      </div>
-      
-      <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-3/4">
-        <img
-        className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-        src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxhbGx8fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080&utm_source=unsplash_source&utm_medium=referral&utm_campaign=api-credit"
-        alt="something's wrong"
-        />
+
+      {
+        userType === "student" ?
+        <div className="mt-3 sm:mt-3 sm:flex lg:justify-start text-center">
+          <div id="student" className="appearance-none rounded-none relative block w-full px-5 py-3 border border-indigo-700 bg-indigo-700 text-white rounded-l-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 cursor-pointer">
+            Student
+          </div>
+          <div className="appearance-none rounded-none relative block w-full px-3 py-3 border border-indigo-700 text-gray-900 rounded-r-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 cursor-pointer hover:bg-indigo-700 hover:text-white" onClick={() => setAccountType("professor")}>
+            Professor
+          </div>
+        </div> :
+        <div className="mt-3 sm:mt-3 sm:flex lg:justify-start text-center">
+          <div id="student" className="appearance-none rounded-none relative block w-full px-5 py-3 border border-indigo-700 rounded-l-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 cursor-pointer hover:bg-indigo-700 hover:text-white" onClick={() => setAccountType("student")}>
+            Student
+          </div>
+          <div className="appearance-none rounded-none relative block w-full px-3 py-3 border border-indigo-700 bg-indigo-700 text-white rounded-r-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 cursor-pointer">
+            Professor
+          </div>
+        </div>
+      }
+
+        <form className="mt-8 space-y-6" onSubmit={loginHandler}>
+          <div className="rounded-md shadow-sm -space-y-px">
+            <div>
+              <label htmlFor="username" className="sr-only">
+                Username
+              </label>
+              <input
+                id="username"
+                type="text"
+                name="username"
+                value={credentials.username}
+                onChange={e => setCredentials({...credentials, 'username': e.target.value})}
+                placeholder="Username"
+                autoFocus
+                autoComplete='off'
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                value={credentials.password}
+                onChange={e => setCredentials({...credentials, 'password': e.target.value})}
+                placeholder="Password"
+                autoComplete='off'
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Log in
+          </button>
+        </form>
       </div>
     </div>
   )
