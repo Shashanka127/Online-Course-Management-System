@@ -50,19 +50,26 @@ export default function Register() {
         })
   }
 
+  const goBack = () => {
+    history.push("/");
+    window.location.reload();
+  }
+
   return (
-    <div className="m-5 justify-items-center">
-      <h1 className="text-2xl mb-3 text-center tracking-tight font-extrabold text-indigo-900 sm:text-5xl md:text-5xl">
-        <span className="block xl:inline">SCUBE<br/></span>{' '}
-        <span className="block text-blue-600 xl:inline">Online Course Management System</span>
-      </h1>
-      
-      <div className="hidden sm:block" aria-hidden="true">
-        <div className="py-5">
-        <div className="border-t border-gray-500" />
+    <div>
+    <div className="w-full py-1 px-4 sm:px-6 lg:px-8 bg-gray-800">
+      <div className="flex items-center justify-between h-16">
+        <div className="flex items-center">
+            <span className="block xl:inline text-white font-bold text-2xl">SCUBE Online Course Management System</span>
+        </div>
+        <div className="ml-4 flex items-center md:ml-6">
+          <button onClick={() => goBack()} className="bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
+            Back
+          </button>
         </div>
       </div>
-
+    </div>
+    <div className="m-5 justify-items-center">
       <h1 className="text-3xl tracking-tight font-extrabold text-indigo-900 sm:text-xl md:text-3xl text-center">Create an account</h1>
 
       <div className="flex items-center justify-center">
@@ -109,7 +116,7 @@ export default function Register() {
                 id="first_name"
                 autoComplete="given-name"
                 onChange={e => setUserData({...userData, 'firstName': e.target.value})}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 p-1 block w-full shadow-md focus:shadow-lg sm:text-sm focus:outline-none rounded-md focus:border-indigo-500"
               />
               </div>
     
@@ -123,7 +130,7 @@ export default function Register() {
                 id="last_name"
                 autoComplete="family-name"
                 onChange={e => setUserData({...userData, 'lastName': e.target.value})}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 p-1 block w-full shadow-md focus:shadow-lg sm:text-sm focus:outline-none rounded-md focus:border-indigo-500"
               />
               </div>
     
@@ -137,7 +144,7 @@ export default function Register() {
                 id="profile_pic_url"
                 autoComplete="family-name"
                 onChange={e => setUserData({...userData, 'photoURL': e.target.value})}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 p-1 block w-full shadow-md focus:shadow-lg sm:text-sm focus:outline-none rounded-md focus:border-indigo-500"
               />
               </div>
     
@@ -151,7 +158,7 @@ export default function Register() {
                 id="email_address"
                 autoComplete="email"
                 onChange={e => usernameChangeHandler(e)}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 p-1 block w-full shadow-md focus:shadow-lg sm:text-sm focus:outline-none rounded-md focus:border-indigo-500"
               />
               <span style={{display: usernameExists}} className="text-red-700 text-md"> Username already exists! </span>
               </div>
@@ -165,7 +172,7 @@ export default function Register() {
                 name="choose_password"
                 id="choose_password"
                 autoComplete="street-address"
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 p-1 block w-full shadow-md focus:shadow-lg sm:text-sm focus:outline-none rounded-md focus:border-indigo-500"
               />
               </div>
     
@@ -179,7 +186,7 @@ export default function Register() {
                 id="confirm_password"
                 autoComplete="street-address"
                 onChange={e => setUserData({...userData, 'password': e.target.value})}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 p-1 block w-full shadow-md focus:shadow-lg sm:text-sm focus:outline-none rounded-md focus:border-indigo-500"
               />
               </div>
             </div>
@@ -196,6 +203,7 @@ export default function Register() {
           </form>
         </div>
       </div>
+    </div>
     </div>
   )
   }
