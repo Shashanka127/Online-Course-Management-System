@@ -158,12 +158,12 @@ def available_courses():
     enrolled_json= []
 
     if courses.find({}):
-	    for course in courses.find({"students":username}).sort("name"):
-	    	enrolled_json.append({"name": course['name'], "description": course['description'], "students": course['students'], "professor": course['professor']})
+        for course in courses.find({"students":username}).sort("name"):
+            enrolled_json.append({"name": course['name'], "description": course['description'], "students": course['students'], "professor": course['professor']})
 
         for course in courses.find({}).sort("name"):
-        	if (course not in enrolled_json):
-            	courses_json.append({"name": course['name'], "description": course['description'], "students": course['students'], "professor": course['professor']})
+            if (course not in enrolled_json):
+                courses_json.append({"name": course['name'], "description": course['description'], "students": course['students'], "professor": course['professor']})
 
     return json.dumps(courses_json)
 
