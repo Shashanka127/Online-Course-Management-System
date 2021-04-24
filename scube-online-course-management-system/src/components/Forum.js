@@ -36,7 +36,7 @@ export default function Forum({ courseName }) {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Name
+                    Username
                   </th>
                   <th
                     scope="col"
@@ -51,7 +51,7 @@ export default function Forum({ courseName }) {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {forumPosts.map((post) => (
-                  <ForumPost key={post.time} courseName={post.name} username={post.username} userType={post.usertype} time={post.time} content={post.details} />
+                  <ForumPost key={post.time} courseName={post.courseName} username={post.username} userType={post.usertype} time={post.time} content={post.content.slice(1, -1)} />
                 ))}
               </tbody>
             </table>

@@ -5,6 +5,7 @@ import { generateAPICall } from '../utils';
 
 export default function ForumPost({ courseName, username, userType, time, content }) {
   const [enrollAlert, setEnrollAlert] = useState(false);
+  const cellColor = userType === "professor" ? "bg-indigo-100" : "bg-white";
 
   const deletePostHandler = () => {
     setEnrollAlert(false);
@@ -23,16 +24,16 @@ export default function ForumPost({ courseName, username, userType, time, conten
   const cancelButtonRef = useRef()
 
   return (
-      <tr key={time} style={{height: '25vh'}}>
+      <tr key={time} className={`min-h-full ${cellColor}`}>
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="flex items-center">
-            <div className="ml-4">
-              <div className="text-sm font-medium text-gray-900">{"(" + userType + ")" + username}</div>
-            </div>
+            <div className="ml-4 ext-sm font-medium text-gray-900">{username}</div>
           </div>
         </td>
-        <td className="px-6 py-4 whitespace-nowrap">
-          <textarea className="text-sm text-gray-900 resize-none" style={{height: '25vh'}} value={content} readOnly={true}/>
+        <td className={`px-6 py-4 whitespace-nowrap text-sm text-gray-900 ${cellColor}`}>
+          <div>
+            {content}
+          </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
           {username === localStorage.getItem("username") ? 

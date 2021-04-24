@@ -9,7 +9,7 @@ export default function CreatePost() {
       'username': localStorage.getItem("username"),
       'courseName': localStorage.getItem("chosenCourse"),
       'userType': localStorage.getItem("usertype"),
-      'content': postContent
+      'content': `"${postContent}"`
     });
 
     fetch(requestURL, {
