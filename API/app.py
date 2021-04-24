@@ -37,7 +37,7 @@ def create_student_account():
     if (student_records.count_documents({'username': username}) == 1):
         return {"success": False}
 
-    student_records.insert({'firstname': firstName, 'lastname': lastName, 'username': username, 'password': password, 'photoURL': photoURL})
+    student_records.insert_one({'firstname': firstName, 'lastname': lastName, 'username': username, 'password': password, 'photoURL': photoURL})
     return {"success": True}
 
 # Check if a student's username exists
@@ -50,13 +50,13 @@ def check_student_username():
 
 # Access a student's profile
 @app.route('/api/student-profile', methods=['GET'])
-def studentprofile():
+def student_profile():
     username = request.args['username']
     student_json = []
 
-    if (student_records.find({})):
-        for student in student_records.find({"username": username}):
-            student_json.append({"firstname": student['firstname'], "lastname": student['lastname'], "username": student['username'], "password": student['password'], "photoURL": student['photoURL']})
+    for student in student_records.find({"username": username}):
+        del student['_id']
+        student_json.append(student)
 
     return json.dumps(student_json)
 
@@ -94,7 +94,7 @@ def create_professor_account():
     if (professor_records.count_documents({'username': username}) == 1):
         return {"success": False}
 
-    professor_records.insert({'firstname': firstName, 'lastname': lastName, 'username': username, 'password': password, 'photoURL': photoURL})
+    professor_records.insert_one({'firstname': firstName, 'lastname': lastName, 'username': username, 'password': password, 'photoURL': photoURL})
     return {"success": True}
 
 # Check if a professor's username exists
@@ -107,7 +107,7 @@ def check_professor_username():
 
 # Access a professor's profile
 @app.route('/api/professor-profile', methods=['GET'])
-def professorprofile():
+def professor_profile():
     username = request.args['username']
     professor_json = []
 
@@ -162,10 +162,11 @@ def available_courses():
             enrolled_json.append({"name": course['name'], "description": course['description'], "students": course['students'], "professor": course['professor']})
 
         for course in courses.find({}).sort("name"):
-            if (course not in enrolled_json):
-                courses_json.append({"name": course['name'], "description": course['description'], "students": course['students'], "professor": course['professor']})
+               courses_json.append({"name": course['name'], "description": course['description'], "students": course['students'], "professor": course['professor']})
 
-    return json.dumps(courses_json)
+    unenrolled_json = [course for course in courses_json if course not in enrolled_json]
+
+    return json.dumps(unenrolled_json)
 
 # Get all courses that the student has enrolled in
 @app.route('/api/enrolled-courses', methods=['GET'])
