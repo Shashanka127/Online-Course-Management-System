@@ -4,10 +4,10 @@ import profileImage from '../images/generic-profile.png'
 export default function Profile({ usertype, username }) {
   const [userData, setUserData] = useState(
     {
-      firstname: "None",
-      lastname: "None",
+      firstName: "None",
+      lastName: "None",
       username: "None",
-      photourl: profileImage,
+      photoURL: profileImage,
     });
 
   const [courses, setCourses] = useState([])
@@ -21,7 +21,7 @@ export default function Profile({ usertype, username }) {
       })
           .then(response => response.json())
           .then(data => {
-              setUserData(data[0]);
+            setUserData(data)
           });
 
       fetch('/api/enrolled-courses?username=' + username, {
@@ -44,7 +44,7 @@ export default function Profile({ usertype, username }) {
       })
           .then(response => response.json())
           .then(data => {
-              setUserData(data[0]);
+            setUserData(data)
           });
 
       fetch('/api/created-courses?username=' + username, {
@@ -87,7 +87,7 @@ export default function Profile({ usertype, username }) {
         <dl>
           <div className="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-indigo-900">Full Name</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{userData.firstname + " " + userData.lastname}</dd>
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{userData.firstName + " " + userData.lastName}</dd>
           </div>
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-indigo-900">Username</dt>

@@ -42,7 +42,7 @@ export default function DashboardHeader({ pageName, navBarTabs, goBackAction }) 
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
                   {navBarTabs.map((tab) => (
-                    <Link to={tab.link} className={mainTabClassNames[tab.style]}>
+                    <Link key={tab.name} to={tab.link} className={mainTabClassNames[tab.style]}>
                       {tab.name}
                     </Link>
                   ))}
@@ -85,11 +85,11 @@ export default function DashboardHeader({ pageName, navBarTabs, goBackAction }) 
 
           <Disclosure.Panel className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                  {navBarTabs.map((tab) => (
-                    <Link to={tab.link} className={mobileTabClassNames[tab.style]}>
-                      {tab.name}
-                    </Link>
-                  ))}
+              {navBarTabs.map((tab) => (
+                <Link key={tab.name} to={tab.link} className={mobileTabClassNames[tab.style]}>
+                  {tab.name}
+                </Link>
+              ))}
             </div>
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="flex items-center px-5">
