@@ -106,7 +106,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
           })
     }
     else if (courseListType === "created") {
-      fetch('/api/delete-course?username=' + courseName, {
+      fetch('/api/delete-course?courseName=' + courseName, {
         method: 'DELETE'
       })
           .then(response => response.json())
