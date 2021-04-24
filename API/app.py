@@ -246,13 +246,15 @@ def create_post():
 @app.route('/api/view-posts', methods=['GET'])
 def view_all_posts():
     courseName = request.args['courseName']
-    forum_json = []
+    posts_json = []
 
     if forum.find({}):
-        for forums in forum.find({"courseName": courseName}).sort({"time":-1}):
-            forum_json.append({"courseName": forums['courseName'], "content": forums['content'], "username": forums['username'], "time": forums['time'], "usertype": forums['usertype']})
+        for post in forum.find({"courseName": courseName}):
+            posts_json.append({"courseName": post['courseName'], "content": post['content'], "username": post['username'], "time": post['time'], "usertype": post['usertype']})
     
-    return json.dumps(forum_json)
+    posts_json.sort(key=lambda x:x['time'], reverse=True)
+
+    return json.dumps(posts_json)
     
 @app.route('/api/delete-post', methods=['DELETE'])
 def delete_post():
