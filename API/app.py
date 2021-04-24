@@ -52,13 +52,11 @@ def check_student_username():
 @app.route('/api/student-profile', methods=['GET'])
 def student_profile():
     username = request.args['username']
-    student_json = []
 
-    for student in student_records.find({"username": username}):
-        del student['_id']
-        student_json.append(student)
+    student = student_records.find({"username": username})[0]
+    del student['_id']
 
-    return json.dumps(student_json)
+    return student
 
 # Authenticate student login
 @app.route('/api/student-login', methods=['GET'])
@@ -109,13 +107,11 @@ def check_professor_username():
 @app.route('/api/professor-profile', methods=['GET'])
 def professor_profile():
     username = request.args['username']
-    professor_json = []
 
-    if professor_records.find({}):
-        for professor in professor_records.find({"username": username}):
-            professor_json.append({"firstname": professor['firstname'], "lastname": professor['lastname'], "username": professor['username'], "password": professor['password'], "photoURL": professor['photoURL']})
-    
-    return json.dumps(professor_json)
+    professor = professor_records.find({"username": username})[0]
+    del professor['_id']
+
+    return professor
 
 # Authenticate professor login
 @app.route('/api/professor-login', methods=['GET'])
