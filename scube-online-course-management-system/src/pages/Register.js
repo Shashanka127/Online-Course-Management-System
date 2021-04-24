@@ -27,6 +27,7 @@ export default function Register() {
             console.log(data['success']);
             if (data['success']) {
               localStorage.setItem("username", userData.username);
+              localStorage.setItem("usertype", userType);
               history.push('/' + userType + 'Home');
             }
             window.location.reload();

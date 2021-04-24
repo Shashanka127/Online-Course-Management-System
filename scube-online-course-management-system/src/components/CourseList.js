@@ -45,6 +45,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
                 coursesList.push(data[i]);
               };
               setCourses(coursesList);
+              console.log(coursesList);
             })
       }
       else {
@@ -60,6 +61,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
                 coursesList.push(data[i]);
               };
               setCourses(coursesList);
+              console.log(coursesList);
             })
       }
     }
@@ -76,6 +78,7 @@ export default function CourseList( { courseListType, usertype, username } ) {
               coursesList.push(data[i]);
             };
             setCourses(coursesList);
+            console.log(coursesList);
           })
     }
   }, [usertype, username]);

@@ -11,6 +11,7 @@ export default function Login() {
   });
 
   const [userType, setAccountType] = useState("student");
+  const [incorrectCredentials, setIncorrectCredentials] = useState("none");
 
   const loginHandler = e => {
     e.preventDefault()
@@ -25,8 +26,12 @@ export default function Login() {
               localStorage.setItem("username", credentials.username);
               localStorage.setItem("usertype", userType);
               history.push('/' + userType + 'Home');
+              window.location.reload();
             }
-            window.location.reload();
+            else {
+              setIncorrectCredentials("block");
+              setCredentials({username: "", password: ""});
+            }
         })
   }
 
@@ -117,6 +122,10 @@ export default function Login() {
             Log in
           </button>
         </form>
+        
+        <span style={{display: incorrectCredentials}} className="text-sm text-red-500 text-center">
+          Incorrect Credentials!
+        </span>
       </div>
     </div>
     </div>

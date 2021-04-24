@@ -6,7 +6,7 @@ export default function Forum({ courseName }) {
   const [forumPosts, setForumPosts] = useState([]);
 
   useEffect(() => {
-    fetch('/api/view-post?courseName=' + courseName, {
+    fetch('/api/view-posts?courseName=' + courseName, {
       method: 'GET'
     })
         .then(response => response.json())
