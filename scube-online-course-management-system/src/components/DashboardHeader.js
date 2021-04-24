@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import profileImage from '../images/generic-profile.png'
 
-export default function DashboardHeader({ pageName, navBarTabs }) {
+export default function DashboardHeader({ pageName, navBarTabs, goBackAction }) {
   let history = useHistory();
 
   const signOutHandler = () => {
     localStorage.clear();
     history.push('/');
+    window.location.reload();
+  }
+
+  const goBackHandler = () => {
+    history.push('/' + localStorage.getItem("usertype") + 'Home');
     window.location.reload();
   }
 
@@ -46,9 +51,15 @@ export default function DashboardHeader({ pageName, navBarTabs }) {
               </div>
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
-                  <button onClick={() => signOutHandler()} className="bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
-                    Sign Out
-                  </button>
+                  {
+                    goBackAction === "Sign Out" ?
+                    <button onClick={() => signOutHandler()} className="bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
+                      Sign Out
+                    </button> :
+                    <button onClick={() => goBackHandler()} className="bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
+                      Go Back to homepage
+                    </button>
+                  }
                   <div className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <img
                       className="h-8 w-8 rounded-full"
@@ -92,9 +103,15 @@ export default function DashboardHeader({ pageName, navBarTabs }) {
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">{localStorage.username}</div>
                 </div>
-                <button onClick={() => signOutHandler()} className="ml-auto bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
-                  Sign Out
-                </button>
+                {
+                  goBackAction === "Sign Out" ?
+                  <button onClick={() => signOutHandler()} className="ml-auto bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
+                    Sign Out
+                  </button> :
+                  <button onClick={() => goBackHandler()} className="ml-auto bg-red-500 p-1 rounded-md text-white hover:text-red-500 hover:bg-white px-5 py-2 m-5 text-sm font-medium">
+                    Go Back to homepage
+                  </button>
+                }
               </div>
             </div>
           </Disclosure.Panel>
