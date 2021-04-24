@@ -150,6 +150,14 @@ def create_course():
     
     return {"success": True}
 
+# Get course details given the course name
+@app.route('/api/course-details', methods=['GET'])
+def course_details():
+	courseName = request.args['courseName']
+	course = courses.find({"name": courseName})[0]
+
+	return {"name": course['name'], "description": course['description'], "students": course['students'], "professor": course['professor']}
+
 # Get all courses that the student can enroll in
 @app.route('/api/available-courses', methods=['GET'])
 def available_courses():

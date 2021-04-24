@@ -1,4 +1,5 @@
 import { Redirect } from 'react-router-dom'
+import CourseProfile from '../components/CourseProfile'
 import DashboardHeader from '../components/DashboardHeader'
 
 export default function CourseDashboard() {
@@ -18,6 +19,7 @@ export default function CourseDashboard() {
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <div className="border-4 border-dashed border-gray-200 rounded-lg p-3">
+            <CourseProfile />
           </div>
         </div>
       </main>
