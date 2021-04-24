@@ -241,7 +241,7 @@ def view_all_posts():
     forum_json = []
 
     if forum.find({}):
-        for forums in forum.find({"courseName": courseName}):
+        for forums in forum.find({"courseName": courseName}).sort({"time":-1}):
             forum_json.append({"courseName": forums['courseName'], "content": forums['content'], "username": forums['username'], "time": forums['time'], "usertype": forums['usertype']})
     
     return json.dumps(forum_json)
