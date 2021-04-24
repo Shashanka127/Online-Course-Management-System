@@ -2,10 +2,10 @@ import { useEffect, useState } from "react"
 
 export default function CourseProfile() {
   const [courseDetails, setCourseDetails] = useState({
-    name: "None",
-    description: "None",
-    professor: "None",
-    students: [],
+    name: "Loading...",
+    description: "Loading...",
+    professor: "Loading...",
+    students: ["Loading..."],
   })
 
   useEffect(() => {
@@ -14,7 +14,6 @@ export default function CourseProfile() {
     })
         .then(response => response.json())
         .then(data => {
-          console.log(data)
           setCourseDetails(data)
         })
   }, [])
@@ -23,7 +22,11 @@ export default function CourseProfile() {
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
       <div className="px-2 py-5 text-center sm:px-2 bg-indigo-100 w-full rounded-md">
         <h1 className="text-3xl font-medium text-indigo-900">{localStorage.getItem("chosenCourse")}</h1>
-        {courseDetails.description}
+        <div className="p-3" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <div className="w-1/2 p-1" style={{border: "1px dashed grey", borderRadius: "3px"}}>
+            {courseDetails.description}
+          </div>
+        </div>
       </div>
       <div className="border-t border-indigo-300">
         <dl>
