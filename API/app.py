@@ -307,7 +307,7 @@ def view_submission():
         for submissions in submission.find({"courseName": courseName,"assignmentName":assignmentName,"username":username}):
             submission_json.append({"courseName": submissions['courseName'], "assignmentName": submissions['assignmentName'],"username":submissions['username'],"SubmissionLink":submissions['SubmissionLink'],"Grade":submissions['grade'],"time": submissions['time']})
     if(submission_json==null):
-        return("none":none)
+        return{"none":none}
     submission_json.sort(key=lambda x:x['time'], reverse=True)
     return json.dumps(submission_json)
 
