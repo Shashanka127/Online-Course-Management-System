@@ -264,11 +264,12 @@ def delete_post():
 
    return {"success": True}
 
+# --- Assignments CRUD Operations ---------------------------------------------------------------- #
 
 @app.route('/api/create-assignment', methods=['POST'])
 def create_assignement():
    assignmentName=request.args['assignmentName']
-   ProblemLink=request.args['ProblemLink']
+   ProblemLink=request.args['problemLink']
    courseName = request.args['courseName']
    dateTimeObj = datetime.now()
    assignment.insert_one({"courseName": courseName,"assignmentName":assignmentName,"ProblemLink":ProblemLink,"time": str(dateTimeObj)})
@@ -290,24 +291,23 @@ def view_assignment():
 def create_submission():
    assignmentName=request.args['assignmentName']
    username = request.args['username']
-   SubmissionLink=request.args['SubmissionLink']
+   SubmissionLink=request.args['submissionLink']
    courseName = request.args['courseName']
    dateTimeObj = datetime.now()
-   submission.insert_one({"courseName": courseName,"assignmentName":assignmentName,"username":username,"SubmissionLink":SubmissionLink,"Grade":"NA","time": str(dateTimeObj)})
+   submission.insert_one({"courseName": courseName,"assignmentName":assignmentName,"username":username,"SubmissionLink":SubmissionLink,"grade":"NA","time": str(dateTimeObj)})
    return {"success": True}
 
 @app.route('/api/view-submission', methods=['GET'])
 def view_submission():
     courseName = request.args['courseName']
     assignmentName=request.args['assignmentName']
-    username = request.args['username']
     submission_json = []
 
     if submission.find({}):
-        for submissions in submission.find({"courseName": courseName,"assignmentName":assignmentName,"username":username}):
+        for submissions in submission.find({"courseName": courseName,"assignmentName":assignmentName}):
             submission_json.append({"courseName": submissions['courseName'], "assignmentName": submissions['assignmentName'],"username":submissions['username'],"SubmissionLink":submissions['SubmissionLink'],"Grade":submissions['grade'],"time": submissions['time']})
-    if(submission_json==null):
-        return("none":none)
+    if(submission_json==None):
+        return {"none":none}
     submission_json.sort(key=lambda x:x['time'], reverse=True)
     return json.dumps(submission_json)
 
