@@ -278,7 +278,7 @@ def create_assignement():
    assignment.insert_one({"courseName": courseName,"assignmentName":assignmentName,"ProblemLink":ProblemLink,"deadline":deadline,"submitted":submitted,"time": str(dateTimeObj)})
    return {"success": True}
 
-@app.route('/api/view-assignment', methods=['GET'])
+@app.route('/api/view-assignments', methods=['GET'])
 def view_assignment():
     courseName = request.args['courseName']
     
