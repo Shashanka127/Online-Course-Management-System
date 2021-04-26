@@ -323,7 +323,7 @@ def grade_assignement():
    username = request.args['username']
    courseName = request.args['courseName']
    grade=request.args['grade']
-   submission.update_one({"courseName": courseName,"assignmentName":assignmentName,"username":username},{"grade":grade})
+   submission.update_one({"courseName": courseName,"assignmentName":assignmentName,"username":username},{'$set':{"grade":grade}})
    return {"success": True}
 
 if __name__ == "__main__":
