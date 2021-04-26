@@ -18,6 +18,8 @@ student_records = db.get_collection('student_records')
 professor_records = db.get_collection('professor_records')
 courses = db.get_collection('courses')
 forum = db.get_collection('forum_posts')
+assignment=db.get_collection('assignment')
+submission=db.get_collection('submission')
 
 # ------------------------------------------------------------------------------------------------ #
 # --------------------------------------- Defining the API --------------------------------------- #
@@ -261,6 +263,62 @@ def delete_post():
    forum.delete_one({"courseName": courseName, "username": username, "time": time})
 
    return {"success": True}
+
+
+@app.route('/api/create-assignment', methods=['POST'])
+def create_assignement():
+   assignmentName=request.args['assignmentName']
+   ProblemLink=request.args['ProblemLink']
+   courseName = request.args['courseName']
+   dateTimeObj = datetime.now()
+   assignment.insert_one({"courseName": courseName,"assignmentName":assignmentName,"ProblemLink":ProblemLink,"time": str(dateTimeObj)})
+   return {"success": True}
+
+@app.route('/api/view-assignment', methods=['GET'])
+def view_assignment():
+    courseName = request.args['courseName']
+    assignment_json = []
+
+    if assignment.find({}):
+        for assignments in assignment.find({"courseName": courseName}):
+            assignment_json.append({"courseName": assignments['courseName'], "assignmentName": assignments['assignmentName'], "ProblemLink": assignments['ProblemLink'],"time": assignments['time']})
+   
+    assignment_json.sort(key=lambda x:x['time'], reverse=True)
+    return json.dumps(assignment_json)
     
+@app.route('/api/create-submission', methods=['POST'])
+def create_submission():
+   assignmentName=request.args['assignmentName']
+   username = request.args['username']
+   SubmissionLink=request.args['SubmissionLink']
+   courseName = request.args['courseName']
+   dateTimeObj = datetime.now()
+   submission.insert_one({"courseName": courseName,"assignmentName":assignmentName,"username":username,"SubmissionLink":SubmissionLink,"Grade":"NA","time": str(dateTimeObj)})
+   return {"success": True}
+
+@app.route('/api/view-submission', methods=['GET'])
+def view_submission():
+    courseName = request.args['courseName']
+    assignmentName=request.args['assignmentName']
+    username = request.args['username']
+    submission_json = []
+
+    if submission.find({}):
+        for submissions in submission.find({"courseName": courseName,"assignmentName":assignmentName,"username":username}):
+            submission_json.append({"courseName": submissions['courseName'], "assignmentName": submissions['assignmentName'],"username":submissions['username'],"SubmissionLink":submissions['SubmissionLink'],"Grade":submissions['grade'],"time": submissions['time']})
+    if(submission_json==null):
+        return("none":none)
+    submission_json.sort(key=lambda x:x['time'], reverse=True)
+    return json.dumps(submission_json)
+
+@app.route('/api/grade-assignment', methods=['POST'])
+def grade_assignement():
+   assignmentName=request.args['assignmentName']
+   username = request.args['username']
+   courseName = request.args['courseName']
+   grade=request.args['grade']
+   submission.update_one({"courseName": courseName,"assignmentName":assignmentName,"username":username},{"grade":grade})
+   return {"success": True}
+
 if __name__ == "__main__":
     app.run(debug=True)
