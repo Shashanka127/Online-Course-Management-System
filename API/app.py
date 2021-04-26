@@ -285,7 +285,6 @@ def view_assignment():
     username = request.args['username']
     assignment_json = []
     submitted="False"
-   
        
     if submission.find({}):
         for submissions in submission.find({"courseName": courseName,"username": username}):
@@ -316,7 +315,7 @@ def view_submission():
 
     if submission.find({}):
         for submissions in submission.find({"courseName": courseName,"assignmentName":assignmentName}):
-            submission_json.append({"courseName": submissions['courseName'], "assignmentName": submissions['assignmentName'],"username":submissions['username'],"SubmissionLink":submissions['SubmissionLink'],"Grade":submissions['grade'],"time": submissions['time']})
+            submission_json.append({"courseName": submissions['courseName'], "assignmentName": submissions['assignmentName'],"username":submissions['username'],"SubmissionLink":submissions['SubmissionLink'],"grade":submissions['grade'],"time": submissions['time']})
     if(submission_json==None):
         return{"none":none}
     submission_json.sort(key=lambda x:x['time'], reverse=True)
