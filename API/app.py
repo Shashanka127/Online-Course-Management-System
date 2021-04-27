@@ -275,7 +275,7 @@ def create_assignement():
    
    dateTimeObj = datetime.now()
    
-   assignment.insert_one({"courseName": courseName,"assignmentName":assignmentName,"ProblemLink":ProblemLink,"deadline":deadline,"submitted":submitted,"time": str(dateTimeObj)})
+   assignment.insert_one({"courseName": courseName,"assignmentName":assignmentName,"ProblemLink":ProblemLink,"deadline":deadline,"time": str(dateTimeObj)})
    return {"success": True}
 
 @app.route('/api/view-assignments', methods=['GET'])
@@ -286,15 +286,15 @@ def view_assignment():
     assignment_json = []
     submitted="False"
        
-    if submission.find({}):
-        for submissions in submission.find({"courseName": courseName,"username": username}):
-            submitted="True"
-            grade=submissions['grade']
+    # if submission.find({}):
+    #     for submissions in submission.find({"courseName": courseName,"username": username}):
+    #         submitted="True"
+    #         grade=submissions['grade']
     if assignment.find({}):
         for assignments in assignment.find({"courseName": courseName}):
-            assignment_json.append({"courseName": assignments['courseName'], "assignmentName": assignments['assignmentName'], "ProblemLink": assignments['ProblemLink'],"time": assignments['time'],"submitted":submitted, "grade":grade})
+            assignment_json.append({"courseName": assignments['courseName'], "assignmentName": assignments['assignmentName'], "ProblemLink": assignments['ProblemLink'], "deadline": assignments['deadline'], "time": assignments['time'],"submitted":submitted, "grade":"NA"})
    
-    assignment_json.sort(key=lambda x:x['time'], reverse=True)
+    assignment_json.sort(key=lambda x:x['time'])
     return json.dumps(assignment_json)
     
 @app.route('/api/create-submission', methods=['POST'])
