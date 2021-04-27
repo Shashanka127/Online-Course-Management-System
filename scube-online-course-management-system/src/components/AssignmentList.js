@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Assignment from './Assignment';
+import CreateAssignment from './CreateAssignment';
 import CreatePost from './CreatePost';
 
 export default function AssignmentList({ courseName }) {
@@ -24,7 +25,7 @@ export default function AssignmentList({ courseName }) {
 
   return (
     <div>
-      {/* <CreatePost /> */}
+      <CreateAssignment />
     <div className="flex flex-col">
       <div className="overflow-x-auto">
         <div className="py-1 align-middle inline-block min-w-full">
