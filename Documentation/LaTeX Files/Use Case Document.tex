@@ -9,7 +9,7 @@
 \titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge}
 
 % Inserting Document Header
-\documentheader{USE CASE DOCUMENT}{1.1}{22$^{nd}$ February, 2021}
+\documentheader{USE CASE DOCUMENT}{1.2}{1$^{st}$ May, 2021}
 
 \begin{document}
 \maketitle
@@ -20,11 +20,11 @@
 
 \newpage
 \chapter{Use Case Diagram}
-The Use Case Diagram proposed for the Online Course Management System, based on the Software Requirements Specification (SRS) Version 1.1 is shown below.
+The Use Case Diagram proposed for the Online Course Management System, based on the Software Requirements Specification (SRS) Version 1.2 is shown below.
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[width=\textwidth]{Diagrams/Use Case Diagram Version 1.1.png}
-        \caption{Use Case Diagram Version 1.1}
+        \includegraphics[width=\textwidth]{Diagrams/Use Case Diagram v1.2.png}
+        \textsc{Use Case Diagram Version 1.2}
     \end{center}
 \end{figure}
 
@@ -51,16 +51,10 @@ Student, Professor, System Admin
 \end{enumerate}
 }
 { % Alternate Flows
+\textbf{The credentials are incorrect}
 \begin{enumerate}
-    \item \textbf{The username doesn't exist}
-            \begin{enumerate}
-                \item The system redirects to the Registration Page.
-            \end{enumerate}
-    \item \textbf{The username exists, but the password is incorrect}
-            \begin{enumerate}
-                \item The system displays an error message and resets the Login Page.
-                \item The user re-initiates the use-case.
-            \end{enumerate}
+    \item The system displays an error message and resets the Login Page.
+    \item The user re-initiates the use-case.
 \end{enumerate}
 }
 { % Pre-Conditions
@@ -75,6 +69,7 @@ The user is successfully logged into the system.
 
 % --------------------------------------------------------------------------------------------------
 
+\newpage
 \usecase {Register}
 { % Overview
 This use case describes how a user (Student, Professor or System Admin) can register an account in the System.
@@ -251,6 +246,7 @@ Choose Enrolled Course
 
 % --------------------------------------------------------------------------------------------------
 
+\newpage
 \usecase {Create Course}
 { % Overview
 This use case describes how a Professor can create a new course.
@@ -269,6 +265,7 @@ Professor
 { % Pre-Conditions
 }
 { % Post-Conditions
+The course is created and students can register for it.
 }
 { % Includes
 }
@@ -305,16 +302,17 @@ The dashboard of the chosen course is displayed to the professor.
 
 % --------------------------------------------------------------------------------------------------
 
-\usecase {Make Announcement}
+\newpage
+\usecase {Make Forum Post}
 { % Overview
-This use case describes how a Professor can make an announcement in the Course Forum.
+This use case describes how a Professor can make a post in the Course Forum.
 }
 { % Actors
 Professor
 }
 { % Basic Flow
 \begin{enumerate}
-    \item The professor enters the desired announcement to be made into the forum.
+    \item The professor enters the desired post to be made into the forum.
     \item The system creates a forum post and updates the database.
 \end{enumerate}
 }
@@ -354,33 +352,6 @@ Professor
 }
 { % Post-Conditions
 An assignment is created and posted for the students to work on and submit.
-}
-{ % Includes
-Choose Created Course
-}
-{ % Extends
-}
-
-% --------------------------------------------------------------------------------------------------
-
-\usecase {Generate Performance report}
-{ % Overview
-This use case describes how a Professor can generate a performance report for any course handled by them.
-}
-{ % Actors
-Professor
-}
-{ % Basic Flow
-\begin{enumerate}
-    \item The system retrieves all assignment scores of students enrolled in the course.
-    \item The system generates a report of their performances and displays it to the professor.
-\end{enumerate}
-}
-{ % Alternate Flows
-}
-{ % Pre-Conditions
-}
-{ % Post-Conditions
 }
 { % Includes
 Choose Created Course
@@ -448,52 +419,17 @@ Choose Assignment
 % --------------------------------------------------------------------------------------------------
 
 \newpage
-\usecase {Approve/Decline Courses}
+\usecase {Generate Performance report}
 { % Overview
-This use case describes how the system administrator can either approve or decline a new course created by the professor.
+This use case describes how a Professor can generate a performance report for any course handled by them.
 }
 { % Actors
-System Administrator
+Professor
 }
 { % Basic Flow
 \begin{enumerate}
-    \item The system displays all courses waiting for approval.
-    \item The system administrator chooses one of the courses.
-    \item The system displays all details about the course.
-    \item The system administrator approves the course.
-    \item The system updates the database and adds the course to active courses.
-\end{enumerate}
-}
-{ % Alternate Flows
-\begin{enumerate}
-    \item The system administrator declines the course.
-    \item The system removes the course from the wait-list.
-\end{enumerate}
-}
-{ % Pre-Conditions
-}
-{ % Post-Conditions
-The courses is either approved or is declined.
-}
-{ % Includes
-}
-{ % Extends
-}
-
-% --------------------------------------------------------------------------------------------------
-
-\usecase {Manage Users}
-{ % Overview
-This use case describes how the system administrator can manage all users that are currently using the system.
-}
-{ % Actors
-System Administrator
-}
-{ % Basic Flow
-\begin{enumerate}
-    \item The system retrieves the details of all users from the database and displays them.
-    \item The system administrator can disable or delete any account in the list.
-    \item The system updates the database and restricts that user to login to the system.
+    \item The system retrieves all assignment scores of students enrolled in the course.
+    \item The system generates a report of their performances and displays it to the professor.
 \end{enumerate}
 }
 { % Alternate Flows
@@ -501,9 +437,9 @@ System Administrator
 { % Pre-Conditions
 }
 { % Post-Conditions
-Any number of users' accounts may be disabled or deleted.
 }
 { % Includes
+Choose Created Course
 }
 { % Extends
 }
